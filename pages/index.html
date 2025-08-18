@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Hello Express!</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <h1>Hello Express!</h1>
-    <p>Showing <code>pages/index.html</code></p>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monster Finder</title>
+  <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-black/20 backdrop-blur border-b border-green-500/20">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <h1 class="text-2xl font-bold text-green-400">{{appName}}</h1>
+      </div>
+      <div class="flex space-x-2">
+        <a href="/" role="button" class="nav-btn active">Home</a>
+        <a href="/markets" role="button" class="nav-btn">Stores</a>
+        <a href="/favs" role="button" class="nav-btn">Favourites</a>
+      </div>
+    </div>
+  </nav>
+  <!-- Prices Page -->
+  <div id="prices" class="page active container mx-auto px-4 py-8">
+    <!-- Search + Filter -->
+    <div class="mb-8 flex flex-col gap-4">
+      <input type="text" placeholder="Search flavors..."
+        class="search-input bg-slate-800 border border-slate-600 rounded p-3 w-full text-white" />
+      <select class="filter-select bg-slate-800 border border-slate-600 rounded p-3 w-full text-white">
+        <option value="all">All Flavors</option>
+        {{flavorfilters}}
+      </select>
+      <select class="filter-select bg-slate-800 border border-slate-600 rounded p-3 w-full text-white">
+        <option>Sort by Price</option>
+        <option>Lowest First</option>
+        <option>Highest First</option>
+        <option>Alphabetical</option>
+      </select>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      {{results}}
+    </div>
+  </div>
+</body>
+
 </html>

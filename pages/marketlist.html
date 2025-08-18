@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Detail: {{marketName}} - {{appName}}</title>
+  <title>All Stores - {{appName}}</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -27,16 +27,14 @@
   <div id="marketOverview" class="page active container mx-auto px-4 py-8">
     <!-- Search + Filter -->
     <div class="mb-8 flex flex-col gap-4">
-      <h1 class="text-3xl font-bold text-green-400 mb-0"><img src="{{marketLogo}}"> {{marketName}} details</h1>
+      <h1 class="text-3xl font-bold text-green-400 mb-0">All Stores</h1>
       <div class="flex flex-row gap-4">
-        <a href="{{marketLink}}" role="button" class="btn-primary sub-button">Open Website</a>
-        <span class="store-stat-badge">{{marketCurrency}}</span>
       </div>
     </div>
 
     <!-- Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      {{productFlavorCards}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {{marketCards}}
     </div>
   </div>
 </body>

@@ -4,23 +4,192 @@ body {
   color: white;
   font-family: system-ui, -apple-system, sans-serif;
 }
-.page { display: none; }
-.page.active { display: block; }
-.nav-btn { padding:8px 16px; border-radius:8px; background:#475569; transition:.2s; }
-.nav-btn:hover { background:#64748b; }
-.nav-btn.active { background:#16a34a; color:white; }
-.flavor-card {
-  transition: all 0.3s ease;
-  background: rgba(30,41,59,.5);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(71,85,105,1);
+.f-original{
+  --flavor: #22c55e;
 }
-.flavor-card:hover { transform: translateY(-4px); box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);}
-.best-price { background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.2);}
-.price-row { background:rgba(71,85,105,.5); padding:12px; border-radius:8px; margin-bottom:8px;}
-.btn-primary { background:#16a34a; color:white; padding:8px 16px; border-radius:8px; border:none; cursor:pointer; transition:.2s;}
-.btn-primary:hover { background:#15803d; }
-.best-badge { background:#22c55e; color:black; padding:2px 8px; border-radius:9999px; font-size:10px; font-weight:bold;}
-.flavor-color-original{background:#22c55e;}
-.flavor-color-ultra{background:linear-gradient(90deg,#3b82f6,white);}
-.flavor-color-pipeline{background:linear-gradient(90deg,#ec4899,#f97316);}
+.f-ultra{
+  --flavor: -webkit-linear-gradient(90deg, #3b82f6, white);
+}
+.f-ultraviolet{
+  --flavor: #684994
+}
+.f-mangoloco{
+  --flavor: -webkit-linear-gradient(90deg, #39c7e7, #f2c55d)
+}
+.f-ultrafantasyrubyred{
+  --flavor: -webkit-linear-gradient(90deg, #c10848, #da67a5, #597b9c)
+}
+.f-ultrafiestamango{
+  --flavor: #66c5c8
+}
+.f-pipelinepunch{
+  --flavor: -webkit-linear-gradient(90deg, #d84d67, #e3b6bd)
+}
+.f-aussielemonade{
+  --flavor: -webkit-linear-gradient(90deg, #f7f5f2, #f9de42, #233281)
+}
+.f-ultragold{
+  --flavor: -webkit-linear-gradient(90deg, #ddba60, #b59540)
+}
+.f-ultrapeachy{
+  --flavor: #b59540;
+}
+.f-ultrastrawberry{
+  --flavor: #db9fc2;
+}
+.f-papillion{
+  --flavor: -webkit-linear-gradient(90deg, #db9fc2, #fef066)
+}
+.f-original-nosugar{
+  --flavor: #b7da3d;
+}
+
+.flavor-accent-text{
+  background: var(--flavor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+.flavor-accent-other{
+  background: var(--flavor);
+}
+
+.flavor-accent-bg{
+  background: transparent !important;
+  backdrop-filter: brightness(50%);
+  overflow: hidden;
+  position: relative;
+}
+
+.flavor-accent-bg::after{
+  background:var(--flavor);
+  display: block;
+  content: "";
+  width: calc(100% + 50px);
+  height: calc(100% + 50px);
+  position: absolute;
+  top:0;
+  left:0;
+  /* top: calc(-100% - 25px); */
+  /* left: -25px; */
+  z-index: -1;
+filter: saturate(80%) brightness(40%);
+opacity: 0.8;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #475569;
+  transition: .2s;
+}
+
+.nav-btn:hover {
+  background: #64748b;
+}
+
+.nav-btn.active {
+  background: #16a34a;
+  color: white;
+}
+
+.card {
+  transition: all 0.3s ease;
+  background: rgba(30, 41, 59, .5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(71, 85, 105, 1);
+}
+.card img{
+  width: 100%;
+  height: 25em;
+  object-fit:contain;
+
+}
+.market img{
+  height: 15em;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+}
+
+.best-price {
+  background: rgba(34, 197, 94, .1);
+  border: 1px solid rgba(34, 197, 94, .2);
+}
+
+.price-row {
+  background: rgba(71, 85, 105, .5);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.store-stat-badge {
+  background: rgba(71, 85, 105, .5);
+  padding: 8px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  width: fit-content;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: #16a34a;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-primary:hover {
+  background: #15803d;
+}
+
+.best-badge {
+  background: #22c55e;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.sub-button {
+  background: #22c55e;
+  color: black;
+  font-weight: bold;
+  width: fit-content;
+  display: inline-block;
+}
+
+h1 img {
+  display: inline-block;
+  height: 2ch;
+}
+.nowprice{
+  font-size: 2em;
+  font-weight: bold;
+}
+.wasprice{
+  font-size: 1.2em;
+  margin-left: 2px;
+}
+.wasprice::before{
+  content: " was ";
+  font-size: 0.8em;
+}
