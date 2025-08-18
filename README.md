@@ -1,5 +1,5 @@
 # monstertracker
 Web App to find the cheapest prices for a can of Monster.
 
-
-WIP.
+## Uploading request files
+Export the collection from Postman in v2.1 JSON format.
