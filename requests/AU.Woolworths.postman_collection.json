@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "534d3a99-f2a2-4624-aa16-93b46a2a7c08",
+		"name": "AU.Woolworths",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47664812",
+		"_collection_link": "https://www.postman.com/novafurry-2445145/workspace/monstertracker/collection/47664812-534d3a99-f2a2-4624-aa16-93b46a2a7c08?action=share&source=collection_link&creator=47664812"
+	},
+	"item": [
+		{
+			"name": "Search (filters)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br, zstd"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.5"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "bff_region=syd2; akaalb_woolworths.com.au=~op=www_woolworths_com_au_ZoneA:PROD-ZoneA|www_woolworths_com_au_BFF_SYD_Launch:WOW-BFF-SYD2|~rv=89~m=PROD-ZoneA:0|WOW-BFF-SYD2:0|~os=43eb3391333cc20efbd7f812851447e6~id=aa0a08d488064ae3b24a14b2c2f12d83; _abck=0BC95602892A34E0D615E152AB4EC013~0~YAAQTlbbF+ItjLKYAQAAR0TEug4eKxEkn3QwN/OQ7BpQ1jD+bt1CTdJ26HkM0nvnsNaRoC0PACKA/FOyBWHR9nPQW1pphu0cOKmeTwk//CR2tu2xDJ4h2tKDjsd5uBPw5zY1nXKR/q/5y8pSHKHpjVj+tGAReBSkV50qbdbGt+e4b2ROiPFa4dxWLERt0QZW9cKLFUh5pLTEJE1w7qNkVhcnZEsEGUCDti0If8OeXxrYq51TJTLF72RC69Z255IJgdd+q0r5nWmT5F3IP6ZPXBA29+/lzFZhhuylVyfFqeAnWCZYR1TMPCa9TIzaFfKSkU4AcqmAgmbgyJCTdAe2517fPXTGHHSZv9NgmEdKkkID3ORD3I56xlJWu3k8YFkGVfKDQv2z7z2bawOMD7YaXGtxNZvr36lQx2CMujeMORympoUB2myPK9W+9iMHewlvBiZgPJ2fL8doU0tNZsfS2rt7yUzzHxF6CQv5h+ro+IED9uN/+Ivi0Ge6pqiZkTaTHxttSGsb4W6Q7/tlLqh5s22Dg7MI3fOldYKGfmXHfGVLdyxPQLNnqYC8R40lxdOfQMwRfxMBDhhZdKrd2e0ZYGZswVpoEXW7KnixrK7JsvtfBt+35rSLRSVQBEbxXeAgqcUeYZGCBS8T1afuZSuJ5DWz4E/NsvdCwXHC29rfbs2dQ98u+ihGuxpMEYXw+U38l4rPsgscthHmb1uw/qmbGNW2JejGn4TAl9UPW3UbXOHSlyfJww06U7edbGafCUYjOK2JpUz+sONoxRTjG/r816iN172af1wfR+asz7uIYYX9QW+kqc60MR7Q9WWGrgkhiOGvJhUkQSQJ41x/6xD1hHLFBdEq3XEs/DuwPaaabPm3o1CvIjGqt78jKQQA5OujwOiUHoEqqs5ibldGOlPt9C4vQ9H7RY+RwvMY+tj19yEFXitENHxqzOsE3UcIxYERADH6T3SBT0Q0Wsf0imFX0bQsCQ==~-1~-1~1755483478; ak_bmsc=BBDA953F38D17E62E6C7F5B4810D899C~000000000000000000000000000000~YAAQTlbbFy3HebKYAQAAJTiKuhy7s/UsQnNUHvRwM6R/DzKmnV+r9W35iwZY7uABLYJor6Z1wDAN3+iTrNUPx4EpYkwkT3FqDWylv7mqYUaVCr9fzwc4PZx7A2VHtPmCvN2uE28LdzFv3KqC0d2U3HEO2D4LeGMQsYWPkLbm3ytSVg9AuJBgWkqCvpE/+sCVGCKYkybqI7K8BNMxVCyvkG0sH97zk3Q4zFbyKq6TruAEa1PnuEqtWc6Cf+siWgiKotJHbvscKBDw9/6oWgko/hfu54cW4erNnkEZUndETfIoZQdyPNcNDLdw4haFtoQC94QjKMhYrDKLaGh/n2kmrtSifPhBOhL4XdBpRW1qRJlFt/ozstVCG5RVGgXJohkQyk/9xE/LCkfrhF8AkBnROCmtG0g=; bm_sz=20180ACDDFB4862D5D4FC914FD38CAD0~YAAQTlbbF6VVi7KYAQAA+KfBuhzDUgNAZdll/9fk5sNYBsk2kfytoav/tjd29qNREuR8aT09/LUUepTN4NvEu6NFmrlmu89B8s/SZ2rPniMic3gBg4BcMma8tMZy0usnRb9wSIAe46pA8bHOPJBl2VsweU21cqMvvv47d84lucTKvEhDI7l7+P7yzZRwKuzSNqDkHGCExwO6mtLSDu88GfgYzKNYaqMG9+jTzLGLVhEIHlc3h/aCxNOwfGSFCFxrp/yTdwelRnr1xCjlf+U4K608kWN6/n15XMWcbaQ8IOeMJr5It5OOuBj1J0uFDxDq1PKxtBmRZXtoZ54c0WLK3hcNMOhcLQql/i3itqI3TZEpTt9KD8ReE1VpCLynbJ+zagxVIlrl9DjuT3fSgfixiD5UJDIu/CdIPk8bkVPJ0EILyBq+7sRfvx0F6cBMLm/Pii9FGZd3rdGPP6MOfQg+UDVMrox6tig=~3487544~3686706; ai_user=cupMDJ38vurZ9PwZgHweaH|2025-08-18T00:17:57.445Z; AMCV_4353388057AC8D357F000101%40AdobeOrg=179643557%7CMCIDTS%7C20319%7CMCMID%7C83187275766495866724188458323742516455%7CMCOPTOUT-1755487585s%7CNONE%7CvVersion%7C5.5.0; at_check=true; mbox=PC#2f1ac5daa11343fcbd6a7999206d2609.36_0#1818724711|session#19e485e403fa4150a83f8841cc38dc10#1755481943; INGRESSCOOKIE=1755476278.567.266.237027|37206e05370eb151ee9f1b6a1c80a538; w-rctx=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3NTU0NzgyNTEsImV4cCI6MTc1NTQ4MTg1MSwiaWF0IjoxNzU1NDc4MjUxLCJpc3MiOiJXb29sd29ydGhzIiwiYXVkIjoid3d3Lndvb2x3b3J0aHMuY29tLmF1Iiwic2lkIjoiMCIsInVpZCI6ImU0NjZiMjJjLWQyNzEtNDU5Ny04MzgxLWMwOTlhYTUxOGE5MSIsIm1haWQiOiIwIiwiYXV0IjoiU2hvcHBlciIsImF1YiI6IjAiLCJhdWJhIjoiMCIsIm1mYSI6IjEifQ.fP-nmpYaz8mTPr1zYgdN441ZQS38dqus5Hi45wSVIaOS1CnmZV-OJL98aKJcM1P_VNJ-6hZZydIB8kK7gdE7KUBkP0zRqt04GvVtq9KyWa7Nz5nWITLOsLYFWsXwkCrqc70VlAwABML0Smnh9i2uvit0V2vSZHgUbhi3gFFbVSQTmJBjWzE1am0UVLPJCzZMp752MUZMYS4sTCZFc7Ekh_WeJqyxu5rr9MFXhKNU27rTm2ovIBwaIy3EfuDP8rF36dyuhiPAF1OKtzpdaEIbWeF-pHaP7JCk0dXndiLR08zdTS952q73kfqRaekGoYllInG1cPudJWL5v_scLsaqsw; wow-auth-token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3NTU0NzgyNTEsImV4cCI6MTc1NTQ4MTg1MSwiaWF0IjoxNzU1NDc4MjUxLCJpc3MiOiJXb29sd29ydGhzIiwiYXVkIjoid3d3Lndvb2x3b3J0aHMuY29tLmF1Iiwic2lkIjoiMCIsInVpZCI6ImU0NjZiMjJjLWQyNzEtNDU5Ny04MzgxLWMwOTlhYTUxOGE5MSIsIm1haWQiOiIwIiwiYXV0IjoiU2hvcHBlciIsImF1YiI6IjAiLCJhdWJhIjoiMCIsIm1mYSI6IjEifQ.fP-nmpYaz8mTPr1zYgdN441ZQS38dqus5Hi45wSVIaOS1CnmZV-OJL98aKJcM1P_VNJ-6hZZydIB8kK7gdE7KUBkP0zRqt04GvVtq9KyWa7Nz5nWITLOsLYFWsXwkCrqc70VlAwABML0Smnh9i2uvit0V2vSZHgUbhi3gFFbVSQTmJBjWzE1am0UVLPJCzZMp752MUZMYS4sTCZFc7Ekh_WeJqyxu5rr9MFXhKNU27rTm2ovIBwaIy3EfuDP8rF36dyuhiPAF1OKtzpdaEIbWeF-pHaP7JCk0dXndiLR08zdTS952q73kfqRaekGoYllInG1cPudJWL5v_scLsaqsw; prodwow-auth-token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3NTU0NzgyNTEsImV4cCI6MTc1NTQ4MTg1MSwiaWF0IjoxNzU1NDc4MjUxLCJpc3MiOiJXb29sd29ydGhzIiwiYXVkIjoid3d3Lndvb2x3b3J0aHMuY29tLmF1Iiwic2lkIjoiMCIsInVpZCI6ImU0NjZiMjJjLWQyNzEtNDU5Ny04MzgxLWMwOTlhYTUxOGE5MSIsIm1haWQiOiIwIiwiYXV0IjoiU2hvcHBlciIsImF1YiI6IjAiLCJhdWJhIjoiMCIsIm1mYSI6IjEifQ.fP-nmpYaz8mTPr1zYgdN441ZQS38dqus5Hi45wSVIaOS1CnmZV-OJL98aKJcM1P_VNJ-6hZZydIB8kK7gdE7KUBkP0zRqt04GvVtq9KyWa7Nz5nWITLOsLYFWsXwkCrqc70VlAwABML0Smnh9i2uvit0V2vSZHgUbhi3gFFbVSQTmJBjWzE1am0UVLPJCzZMp752MUZMYS4sTCZFc7Ekh_WeJqyxu5rr9MFXhKNU27rTm2ovIBwaIy3EfuDP8rF36dyuhiPAF1OKtzpdaEIbWeF-pHaP7JCk0dXndiLR08zdTS952q73kfqRaekGoYllInG1cPudJWL5v_scLsaqsw; dtCookie=v_4_srv_5_sn_BDCB29CBF8BE8580F28068A62276B8BA_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_1_rcs-3Acss_0; bm_sv=4A35956178E6C6779A91B16AD32CC43D~YAAQTlbbFx9Yi7KYAQAA463Buhz2GY2fk58Q51/4YAeUtmtngKZR2hxow6iJCg8hYuOp0NZL/QSAto6fMw4J8iKlM7p0bCJcFHkeTs+6s+YTC08eAKjIM/QI138ANoTTwWiLAydQIXYke/qiUe9FEIeYKn63qlRPDmm1J2UXIZ3ki35LXift9GcUKHYmbE5rPZT1j9Lq9HDVNcHxrX1YFThFYe7/keLFKhTOT/ouhZ1nOZ2E+RXvfiCfp09T6QCyh6pjGbWLQKk=~1; ai_session=h5a/gSOJ0wnEy1PFpkwQcn|1755476278136|1755480364057; AMCVS_4353388057AC8D357F000101%40AdobeOrg=1; utag_main=v_id:0198ba8a482e00510c33abfa689805046005100900c48$_sn:1$_se:26$_ss:0$_st:1755482185624$ses_id:1755476281391%3Bexp-session$_pn:4%3Bexp-session$vapi_domain:woolworths.com.au$dc_visit:1$dc_event:15%3Bexp-session; fullstoryEnabled=false; s_cc=true; bm_mi=E73AA1C27A51A5F719F971CFA71A2C24~YAAQTlbbF2lIi7KYAQAAWnTBuhyd+nNwxI3p3ohi/ecCzNmynmSXiHDTnAoBEnZWylXwPkhlXhEkkonf+2nWwWQC0TwzhHHBV/hrmwcmSZhhGCcC2RrfwP1macA3KOBGAKXTNMDsDKSXIrurje+TpFUJlBMLelwu6zbPSs0r03qbp1RK0oEM8pNabbM4FT8jqL9N8gKYOrfjMfKpYXAvV2e8YAiJ8pkBtA3N/CTJzoH26EWbYc1IZ0mOAIdjUUFJFF7QebRkR1IpkJvj4k3Yri7BMbxpw9f46BOYZlbzvJfsnIBhHHPZlEHlo2OI2aMeBp7Tb9KtEA2UJniCdhI0MfngbPEPIPpobdCvv+Y=~1; AKA_A2=A"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "https://www.woolworths.com.au"
+					},
+					{
+						"key": "Referer",
+						"value": "https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy&pageNumber=1&sortBy=TraderRelevance&filter=Level1Categories(1_5AF3A0A)%3BSoldBy(Woolworths)%3BBrand(Monster%2CMonster%20Energy)"
+					},
+					{
+						"key": "Request-Id",
+						"value": "|ed2970ef721c4ec188281a359b16e106.75c6deff58564d1e"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1"
+					},
+					{
+						"key": "TE",
+						"value": "trailers"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0"
+					},
+					{
+						"key": "traceparent",
+						"value": "00-ed2970ef721c4ec188281a359b16e106-75c6deff58564d1e-01"
+					},
+					{
+						"key": "Cookie",
+						"value": "bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Filters\": [\n\t\t{\n\t\t\t\"Key\": \"Level1Categories\",\n\t\t\t\"Items\": [\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"1_5AF3A0A\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"Key\": \"SoldBy\",\n\t\t\t\"Items\": [\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"Woolworths\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"Key\": \"Brand\",\n\t\t\t\"Items\": [\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"Monster\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"Monster Energy\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t],\n\t\"IsSpecial\": false,\n\t\"Location\": \"/shop/search/products?searchTermMonster%20Energy&pageNumber1&sortByTraderRelevance&filterLevel1Categories(1_5AF3A0A)%3BSoldBy(Woolworths)%3BBrand(Monster%2CMonster%20Energy)\",\n\t\"PageNumber\": 1,\n\t\"PageSize\": 36,\n\t\"SearchTerm\": \"Monster Energy\",\n\t\"SortType\": \"TraderRelevance\",\n\t\"IsHideUnavailableProducts\": false,\n\t\"IsRegisteredRewardCardPromotion\": null,\n\t\"ExcludeSearchTypes\": [\n\t\t\"UntraceableVendors\"\n\t],\n\t\"GpBoost\": 0,\n\t\"GroupEdmVariants\": false,\n\t\"EnableAdReRanking\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.woolworths.com.au/apis/ui/Search/products",
+					"protocol": "https",
+					"host": [
+						"www",
+						"woolworths",
+						"com",
+						"au"
+					],
+					"path": [
+						"apis",
+						"ui",
+						"Search",
+						"products"
+					]
+				},
+				"description": "Generated from cURL: curl --request POST \\\n  --url https://www.woolworths.com.au/apis/ui/Search/products \\\n  --header 'Accept: application/json, text/plain, */*' \\\n  --header 'Accept-Encoding: gzip, deflate, br, zstd' \\\n  --header 'Accept-Language: en-US,en;q=0.5' \\\n  --header 'Connection: keep-alive' \\\n  --header 'Content-Type: application/json' \\\n  --header 'Cookie: bff_region=syd2; akaalb_woolworths.com.au=~op=www_woolworths_com_au_ZoneA:PROD-ZoneA|www_woolworths_com_au_BFF_SYD_Launch:WOW-BFF-SYD2|~rv=89~m=PROD-ZoneA:0|WOW-BFF-SYD2:0|~os=43eb3391333cc20efbd7f812851447e6~id=aa0a08d488064ae3b24a14b2c2f12d83; _abck=0BC95602892A34E0D615E152AB4EC013~0~YAAQTlbbF+ItjLKYAQAAR0TEug4eKxEkn3QwN/OQ7BpQ1jD+bt1CTdJ26HkM0nvnsNaRoC0PACKA/FOyBWHR9nPQW1pphu0cOKmeTwk//CR2tu2xDJ4h2tKDjsd5uBPw5zY1nXKR/q/5y8pSHKHpjVj+tGAReBSkV50qbdbGt+e4b2ROiPFa4dxWLERt0QZW9cKLFUh5pLTEJE1w7qNkVhcnZEsEGUCDti0If8OeXxrYq51TJTLF72RC69Z255IJgdd+q0r5nWmT5F3IP6ZPXBA29+/lzFZhhuylVyfFqeAnWCZYR1TMPCa9TIzaFfKSkU4AcqmAgmbgyJCTdAe2517fPXTGHHSZv9NgmEdKkkID3ORD3I56xlJWu3k8YFkGVfKDQv2z7z2bawOMD7YaXGtxNZvr36lQx2CMujeMORympoUB2myPK9W+9iMHewlvBiZgPJ2fL8doU0tNZsfS2rt7yUzzHxF6CQv5h+ro+IED9uN/+Ivi0Ge6pqiZkTaTHxttSGsb4W6Q7/tlLqh5s22Dg7MI3fOldYKGfmXHfGVLdyxPQLNnqYC8R40lxdOfQMwRfxMBDhhZdKrd2e0ZYGZswVpoEXW7KnixrK7JsvtfBt+35rSLRSVQBEbxXeAgqcUeYZGCBS8T1afuZSuJ5DWz4E/NsvdCwXHC29rfbs2dQ98u+ihGuxpMEYXw+U38l4rPsgscthHmb1uw/qmbGNW2JejGn4TAl9UPW3UbXOHSlyfJww06U7edbGafCUYjOK2JpUz+sONoxRTjG/r816iN172af1wfR+asz7uIYYX9QW+kqc60MR7Q9WWGrgkhiOGvJhUkQSQJ41x/6xD1hHLFBdEq3XEs/DuwPaaabPm3o1CvIjGqt78jKQQA5OujwOiUHoEqqs5ibldGOlPt9C4vQ9H7RY+RwvMY+tj19yEFXitENHxqzOsE3UcIxYERADH6T3SBT0Q0Wsf0imFX0bQsCQ==~-1~-1~1755483478; ak_bmsc=BBDA953F38D17E62E6C7F5B4810D899C~000000000000000000000000000000~YAAQTlbbFy3HebKYAQAAJTiKuhy7s/UsQnNUHvRwM6R/DzKmnV+r9W35iwZY7uABLYJor6Z1wDAN3+iTrNUPx4EpYkwkT3FqDWylv7mqYUaVCr9fzwc4PZx7A2VHtPmCvN2uE28LdzFv3KqC0d2U3HEO2D4LeGMQsYWPkLbm3ytSVg9AuJBgWkqCvpE/+sCVGCKYkybqI7K8BNMxVCyvkG0sH97zk3Q4zFbyKq6TruAEa1PnuEqtWc6Cf+siWgiKotJHbvscKBDw9/6oWgko/hfu54cW4erNnkEZUndETfIoZQdyPNcNDLdw4haFtoQC94QjKMhYrDKLaGh/n2kmrtSifPhBOhL4XdBpRW1qRJlFt/ozstVCG5RVGgXJohkQyk/9xE/LCkfrhF8AkBnROCmtG0g=; bm_sz=20180ACDDFB4862D5D4FC914FD38CAD0~YAAQTlbbF6VVi7KYAQAA+KfBuhzDUgNAZdll/9fk5sNYBsk2kfytoav/tjd29qNREuR8aT09/LUUepTN4NvEu6NFmrlmu89B8s/SZ2rPniMic3gBg4BcMma8tMZy0usnRb9wSIAe46pA8bHOPJBl2VsweU21cqMvvv47d84lucTKvEhDI7l7+P7yzZRwKuzSNqDkHGCExwO6mtLSDu88GfgYzKNYaqMG9+jTzLGLVhEIHlc3h/aCxNOwfGSFCFxrp/yTdwelRnr1xCjlf+U4K608kWN6/n15XMWcbaQ8IOeMJr5It5OOuBj1J0uFDxDq1PKxtBmRZXtoZ54c0WLK3hcNMOhcLQql/i3itqI3TZEpTt9KD8ReE1VpCLynbJ+zagxVIlrl9DjuT3fSgfixiD5UJDIu/CdIPk8bkVPJ0EILyBq+7sRfvx0F6cBMLm/Pii9FGZd3rdGPP6MOfQg+UDVMrox6tig=~3487544~3686706; ai_user=cupMDJ38vurZ9PwZgHweaH|2025-08-18T00:17:57.445Z; AMCV_4353388057AC8D357F000101%40AdobeOrg=179643557%7CMCIDTS%7C20319%7CMCMID%7C83187275766495866724188458323742516455%7CMCOPTOUT-1755487585s%7CNONE%7CvVersion%7C5.5.0; at_check=true; mbox=PC#2f1ac5daa11343fcbd6a7999206d2609.36_0#1818724711|session#19e485e403fa4150a83f8841cc38dc10#1755481943; INGRESSCOOKIE=1755476278.567.266.237027|37206e05370eb151ee9f1b6a1c80a538; w-rctx=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3NTU0NzgyNTEsImV4cCI6MTc1NTQ4MTg1MSwiaWF0IjoxNzU1NDc4MjUxLCJpc3MiOiJXb29sd29ydGhzIiwiYXVkIjoid3d3Lndvb2x3b3J0aHMuY29tLmF1Iiwic2lkIjoiMCIsInVpZCI6ImU0NjZiMjJjLWQyNzEtNDU5Ny04MzgxLWMwOTlhYTUxOGE5MSIsIm1haWQiOiIwIiwiYXV0IjoiU2hvcHBlciIsImF1YiI6IjAiLCJhdWJhIjoiMCIsIm1mYSI6IjEifQ.fP-nmpYaz8mTPr1zYgdN441ZQS38dqus5Hi45wSVIaOS1CnmZV-OJL98aKJcM1P_VNJ-6hZZydIB8kK7gdE7KUBkP0zRqt04GvVtq9KyWa7Nz5nWITLOsLYFWsXwkCrqc70VlAwABML0Smnh9i2uvit0V2vSZHgUbhi3gFFbVSQTmJBjWzE1am0UVLPJCzZMp752MUZMYS4sTCZFc7Ekh_WeJqyxu5rr9MFXhKNU27rTm2ovIBwaIy3EfuDP8rF36dyuhiPAF1OKtzpdaEIbWeF-pHaP7JCk0dXndiLR08zdTS952q73kfqRaekGoYllInG1cPudJWL5v_scLsaqsw; wow-auth-token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3NTU0NzgyNTEsImV4cCI6MTc1NTQ4MTg1MSwiaWF0IjoxNzU1NDc4MjUxLCJpc3MiOiJXb29sd29ydGhzIiwiYXVkIjoid3d3Lndvb2x3b3J0aHMuY29tLmF1Iiwic2lkIjoiMCIsInVpZCI6ImU0NjZiMjJjLWQyNzEtNDU5Ny04MzgxLWMwOTlhYTUxOGE5MSIsIm1haWQiOiIwIiwiYXV0IjoiU2hvcHBlciIsImF1YiI6IjAiLCJhdWJhIjoiMCIsIm1mYSI6IjEifQ.fP-nmpYaz8mTPr1zYgdN441ZQS38dqus5Hi45wSVIaOS1CnmZV-OJL98aKJcM1P_VNJ-6hZZydIB8kK7gdE7KUBkP0zRqt04GvVtq9KyWa7Nz5nWITLOsLYFWsXwkCrqc70VlAwABML0Smnh9i2uvit0V2vSZHgUbhi3gFFbVSQTmJBjWzE1am0UVLPJCzZMp752MUZMYS4sTCZFc7Ekh_WeJqyxu5rr9MFXhKNU27rTm2ovIBwaIy3EfuDP8rF36dyuhiPAF1OKtzpdaEIbWeF-pHaP7JCk0dXndiLR08zdTS952q73kfqRaekGoYllInG1cPudJWL5v_scLsaqsw; prodwow-auth-token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3NTU0NzgyNTEsImV4cCI6MTc1NTQ4MTg1MSwiaWF0IjoxNzU1NDc4MjUxLCJpc3MiOiJXb29sd29ydGhzIiwiYXVkIjoid3d3Lndvb2x3b3J0aHMuY29tLmF1Iiwic2lkIjoiMCIsInVpZCI6ImU0NjZiMjJjLWQyNzEtNDU5Ny04MzgxLWMwOTlhYTUxOGE5MSIsIm1haWQiOiIwIiwiYXV0IjoiU2hvcHBlciIsImF1YiI6IjAiLCJhdWJhIjoiMCIsIm1mYSI6IjEifQ.fP-nmpYaz8mTPr1zYgdN441ZQS38dqus5Hi45wSVIaOS1CnmZV-OJL98aKJcM1P_VNJ-6hZZydIB8kK7gdE7KUBkP0zRqt04GvVtq9KyWa7Nz5nWITLOsLYFWsXwkCrqc70VlAwABML0Smnh9i2uvit0V2vSZHgUbhi3gFFbVSQTmJBjWzE1am0UVLPJCzZMp752MUZMYS4sTCZFc7Ekh_WeJqyxu5rr9MFXhKNU27rTm2ovIBwaIy3EfuDP8rF36dyuhiPAF1OKtzpdaEIbWeF-pHaP7JCk0dXndiLR08zdTS952q73kfqRaekGoYllInG1cPudJWL5v_scLsaqsw; dtCookie=v_4_srv_5_sn_BDCB29CBF8BE8580F28068A62276B8BA_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_1_rcs-3Acss_0; bm_sv=4A35956178E6C6779A91B16AD32CC43D~YAAQTlbbFx9Yi7KYAQAA463Buhz2GY2fk58Q51/4YAeUtmtngKZR2hxow6iJCg8hYuOp0NZL/QSAto6fMw4J8iKlM7p0bCJcFHkeTs+6s+YTC08eAKjIM/QI138ANoTTwWiLAydQIXYke/qiUe9FEIeYKn63qlRPDmm1J2UXIZ3ki35LXift9GcUKHYmbE5rPZT1j9Lq9HDVNcHxrX1YFThFYe7/keLFKhTOT/ouhZ1nOZ2E+RXvfiCfp09T6QCyh6pjGbWLQKk=~1; ai_session=h5a/gSOJ0wnEy1PFpkwQcn|1755476278136|1755480364057; AMCVS_4353388057AC8D357F000101%40AdobeOrg=1; utag_main=v_id:0198ba8a482e00510c33abfa689805046005100900c48$_sn:1$_se:26$_ss:0$_st:1755482185624$ses_id:1755476281391%3Bexp-session$_pn:4%3Bexp-session$vapi_domain:woolworths.com.au$dc_visit:1$dc_event:15%3Bexp-session; fullstoryEnabled=false; s_cc=true; bm_mi=E73AA1C27A51A5F719F971CFA71A2C24~YAAQTlbbF2lIi7KYAQAAWnTBuhyd+nNwxI3p3ohi/ecCzNmynmSXiHDTnAoBEnZWylXwPkhlXhEkkonf+2nWwWQC0TwzhHHBV/hrmwcmSZhhGCcC2RrfwP1macA3KOBGAKXTNMDsDKSXIrurje+TpFUJlBMLelwu6zbPSs0r03qbp1RK0oEM8pNabbM4FT8jqL9N8gKYOrfjMfKpYXAvV2e8YAiJ8pkBtA3N/CTJzoH26EWbYc1IZ0mOAIdjUUFJFF7QebRkR1IpkJvj4k3Yri7BMbxpw9f46BOYZlbzvJfsnIBhHHPZlEHlo2OI2aMeBp7Tb9KtEA2UJniCdhI0MfngbPEPIPpobdCvv+Y=~1; AKA_A2=A' \\\n  --header 'DNT: 1' \\\n  --header 'Origin: https://www.woolworths.com.au' \\\n  --header 'Referer: https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy&pageNumber=1&sortBy=TraderRelevance&filter=Level1Categories(1_5AF3A0A)%3BSoldBy(Woolworths)%3BBrand(Monster%2CMonster%20Energy)' \\\n  --header 'Request-Id: |ed2970ef721c4ec188281a359b16e106.75c6deff58564d1e' \\\n  --header 'Sec-Fetch-Dest: empty' \\\n  --header 'Sec-Fetch-Mode: cors' \\\n  --header 'Sec-Fetch-Site: same-origin' \\\n  --header 'Sec-GPC: 1' \\\n  --header 'TE: trailers' \\\n  --header 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0' \\\n  --header 'traceparent: 00-ed2970ef721c4ec188281a359b16e106-75c6deff58564d1e-01' \\\n  --cookie 'bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0' \\\n  --data '{\n\t\"Filters\": [\n\t\t{\n\t\t\t\"Key\": \"Level1Categories\",\n\t\t\t\"Items\": [\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"1_5AF3A0A\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"Key\": \"SoldBy\",\n\t\t\t\"Items\": [\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"Woolworths\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"Key\": \"Brand\",\n\t\t\t\"Items\": [\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"Monster\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"Term\": \"Monster Energy\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t],\n\t\"IsSpecial\": false,\n\t\"Location\": \"/shop/search/products?searchTermMonster%20Energy&pageNumber1&sortByTraderRelevance&filterLevel1Categories(1_5AF3A0A)%3BSoldBy(Woolworths)%3BBrand(Monster%2CMonster%20Energy)\",\n\t\"PageNumber\": 1,\n\t\"PageSize\": 36,\n\t\"SearchTerm\": \"Monster Energy\",\n\t\"SortType\": \"TraderRelevance\",\n\t\"IsHideUnavailableProducts\": false,\n\t\"IsRegisteredRewardCardPromotion\": null,\n\t\"ExcludeSearchTypes\": [\n\t\t\"UntraceableVendors\"\n\t],\n\t\"GpBoost\": 0,\n\t\"GroupEdmVariants\": false,\n\t\"EnableAdReRanking\": false\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Search (no filters)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br, zstd"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.5"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "https://www.woolworths.com.au"
+					},
+					{
+						"key": "Referer",
+						"value": "https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1"
+					},
+					{
+						"key": "TE",
+						"value": "trailers"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0"
+					},
+					{
+						"key": "Cookie",
+						"value": "bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"Filters\":[],\"IsSpecial\":false,\"Location\":\"/shop/search/products?searchTermMonster%20Energy\",\"PageNumber\":1,\"PageSize\":36,\"SearchTerm\":\"Monster Energy\",\"SortType\":\"TraderRelevance\",\"IsRegisteredRewardCardPromotion\":null,\"ExcludeSearchTypes\":[\"UntraceableVendors\"],\"GpBoost\":0,\"GroupEdmVariants\":false,\"EnableAdReRanking\":false}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.woolworths.com.au/apis/ui/Search/products",
+					"protocol": "https",
+					"host": [
+						"www",
+						"woolworths",
+						"com",
+						"au"
+					],
+					"path": [
+						"apis",
+						"ui",
+						"Search",
+						"products"
+					]
+				},
+				"description": "Generated from cURL: curl --request POST \\\n  --url https://www.woolworths.com.au/apis/ui/Search/products \\\n  --header 'Accept: application/json, text/plain, */*' \\\n  --header 'Accept-Encoding: gzip, deflate, br, zstd' \\\n  --header 'Accept-Language: en-US,en;q=0.5' \\\n  --header 'Connection: keep-alive' \\\n  --header 'Content-Type: application/json' \\\n  --header 'DNT: 1' \\\n  --header 'Origin: https://www.woolworths.com.au' \\\n  --header 'Referer: https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy' \\\n  --header 'Sec-Fetch-Dest: empty' \\\n  --header 'Sec-Fetch-Mode: cors' \\\n  --header 'Sec-Fetch-Site: same-origin' \\\n  --header 'Sec-GPC: 1' \\\n  --header 'TE: trailers' \\\n  --header 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0' \\\n  --cookie 'bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0' \\\n  --data '{\"Filters\":[],\"IsSpecial\":false,\"Location\":\"/shop/search/products?searchTermMonster%20Energy\",\"PageNumber\":1,\"PageSize\":36,\"SearchTerm\":\"Monster Energy\",\"SortType\":\"TraderRelevance\",\"IsRegisteredRewardCardPromotion\":null,\"ExcludeSearchTypes\":[\"UntraceableVendors\"],\"GpBoost\":0,\"GroupEdmVariants\":false,\"EnableAdReRanking\":false}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Search results page (needed to get cookies, No JS needed)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.3.0"
+					},
+					{
+						"key": "Cookie",
+						"value": "bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0"
+					}
+				],
+				"url": {
+					"raw": "https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy",
+					"protocol": "https",
+					"host": [
+						"www",
+						"woolworths",
+						"com",
+						"au"
+					],
+					"path": [
+						"shop",
+						"search",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchTerm",
+							"value": "Monster%20Energy"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl --request GET \\\n  --url 'https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy' \\\n  --header 'User-Agent: insomnia/11.3.0' \\\n  --cookie 'bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0'"
+			},
+			"response": []
+		},
+		{
+			"name": "Product detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br, zstd"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.5"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Priority",
+						"value": "u=4"
+					},
+					{
+						"key": "Referer",
+						"value": "https://www.woolworths.com.au/shop/productdetails/489787/monster-energy-ultra-can"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1"
+					},
+					{
+						"key": "TE",
+						"value": "trailers"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Cookie",
+						"value": "bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0"
+					}
+				],
+				"url": {
+					"raw": "https://www.woolworths.com.au/apis/ui/product/detail/489787?isMobile=false&useVariant=true",
+					"protocol": "https",
+					"host": [
+						"www",
+						"woolworths",
+						"com",
+						"au"
+					],
+					"path": [
+						"apis",
+						"ui",
+						"product",
+						"detail",
+						"489787"
+					],
+					"query": [
+						{
+							"key": "isMobile",
+							"value": "false"
+						},
+						{
+							"key": "useVariant",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl --request GET \\\n  --url 'https://www.woolworths.com.au/apis/ui/product/detail/489787?isMobile=false&useVariant=true' \\\n  --header 'Accept: application/json' \\\n  --header 'Accept-Encoding: gzip, deflate, br, zstd' \\\n  --header 'Accept-Language: en-US,en;q=0.5' \\\n  --header 'Connection: keep-alive' \\\n  --header 'DNT: 1' \\\n  --header 'Priority: u=4' \\\n  --header 'Referer: https://www.woolworths.com.au/shop/productdetails/489787/monster-energy-ultra-can' \\\n  --header 'Sec-Fetch-Dest: empty' \\\n  --header 'Sec-Fetch-Mode: cors' \\\n  --header 'Sec-Fetch-Site: same-origin' \\\n  --header 'Sec-GPC: 1' \\\n  --header 'TE: trailers' \\\n  --header 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0' \\\n  --header 'cache-control: no-cache' \\\n  --cookie 'bff_region=syd2; akaalb_woolworths.com.au=~op%3Dwww_woolworths_com_au_ZoneA%3APROD-ZoneA%7Cwww_woolworths_com_au_BFF_SYD_Launch%3AWOW-BFF-SYD2%7C~rv%3D98~m%3DPROD-ZoneA%3A0%7CWOW-BFF-SYD2%3A0%7C~os%3D43eb3391333cc20efbd7f812851447e6~id%3D4810ef2c259e55860f8d3239c6257960; _abck=F2D386060097F3C5D5878C39B086E943~-1~YAAQTlbbFytIjbKYAQAAnM3Hug6sJOg0M1d7r2zb%2B3hyvf4DcFHB0Vy9XHuii5OiWdYBXxUGdJAmMBN5xBay3wXsbX4pxVbrmrgB9NwYBLZgB%2BnxqytJNgG8CSeAQH%2F9C%2BCF9zLF%2FDhSrkNTfUu%2BoWjqBAZ7c7NfBK40ZeZxXLDotFX%2BC6dMn%2FEoXB2tI1GfvTWbALSdwkjt7G84pnd4QYY%2BDJigaFdzMe8P9w%2BnHDKiCf%2FC9QY4Wujr6fs%2FPBSC5IYOp9UPFqwaORj6mgIIHzzVP5JCYzynCUK%2Be8gauHF8lj%2BDHims89KfmENsQk6pk5G3s91e4f0GT7M9EAjeYkJlNMsZkvAynX7%2Ber0iWaI35E8TqDdYfezimMZSZBdAf2N1QVhJDypDQmwBxwutNIg%2BHbZWrtcfLwQSGQC113ajeWdD5JQGby99pgS0XElJpeNgWAOOiXHC%2BR41SPYqJ0sA8H06v3SExEo%2FotXxOJsc8U%2B1a7cqvmWcrau9cpVWE8FU3KLNZSXhnxTOM5jsXltDM92aDnwOM1iWhjIHNJiPtpGpl8dK%2Fqfkx05Wg1gjRNvO0iEIAwZDWwylspb25agxRptH0jEV1tartUf9x%2B9kpyqU4CG%2FF3Jk5yXBAu2ldupRLEy4GpBcm7pobbBlrgXh3qdGHYE%2FHWNNErOqhudL6c1VlDVNA0KrNCbwX%2ByccyGADuKc22p3QyjIEEh4U9XjXqQ2w2D0OK1iX8d9ZLsrmInvOGzNg5ZTezd60Z9p7xmLjKi3CK0r5ToCgvqPlzVPwzpEMILyDaSdPyC4C4fmPc5DFl614k4hR9B5Bqv0pTwQU%2BrjWLHnwGj1UPXUKUWJCNbSFKfMKqRLCOFdNlqxTOrcTaZdkyPhcuwGpZbcooA02E2kVp4F8h6%2Bd2NvWvJ5UUr0yuYvSlftM1bWn4d%2ByxerCl81QVyE43CR8aS5kk2QCM17GkKnm3h40vUtNQyn65ieBFHY2UAY%2BhbLRz9Ir1HpA%2FTmJrsXUXHiIkNkCn0dAAF7Q05pOt8t1ZoS~-1~-1~-1; bm_sz=7AA1D499A50BFBE545E64B7D59DE4715~YAAQTlbbFyxIjbKYAQAAnM3Huhxxule9jO9OJk95EjwJRTvDj2Qwbw2ntmpNu2iatK2czhLePIKiednaORVVTU4HGMMcSIyaEhcVdKMPHDe5YRiRbqdk5UKD23tGXD0Mnc1QXY0p8fde3JgXWj%2Fy%2FQ%2F9VKJM0iWELLNPeZvhXVboGg9pmG44dO0M8pqFfFYHvEcAq9X1Yi1YwbKj%2BwIfA5dkUe7hto7gDixAxM3w0J9lEaymZ6Jb%2Fr6vIH%2BLN4rvQJ4o%2BPT3EYJDvKh8O%2BStVR6e6uFADYbzz6fL2wZTIuzZakfkthWJ1aeW%2B73oqHOPZl6QKTGyRlIRUUibpxQssFBeTRzdqKGMYo1fYGefA0qtfvJRTuAZAoQC%2FaYH%2B%2BVtMRYmw5IaYLflC0zjeaq7pb%2BABU5A9oU6es9HDzD3MmeMLfZlXCDFp9Q%3D~4538929~3552824; INGRESSCOOKIE=1755480143.402.269.33325%7C37206e05370eb151ee9f1b6a1c80a538; dtCookie=v_4_srv_10_sn_357A888D0D1FE8D757517AEAD05CA81F_perc_100000_ol_0_mul_1_app-3Af908d76079915f06_0_rcs-3Acss_0'"
+			},
+			"response": []
+		}
+	]
+}
