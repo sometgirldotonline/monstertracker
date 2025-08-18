@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Detail: {{marketName}} - {{appName}}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-black/20 backdrop-blur border-b border-green-500/20">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <h1 class="text-2xl font-bold text-green-400">{{appName}}</h1>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="showPage(event,'prices')" class="nav-btn active">Prices</button>
+          <button onclick="showPage(event,'markets')" class="nav-btn">Markets</button>
+          <button onclick="showPage(event,'favorites')" class="nav-btn">Favorites</button>
+        </div>
+      </div>
+    </nav>
+    <h1>
+    <small>
+    <small><i>MonsterFinder</i></small><br>
+    <i>Market Details</i></small><br>
+    {{marketName}}
+    </h1>
+    <p>
+        <b>Market: </b>{{marketName}}<br>
+        <b>Website: </b><a href="{{marketLink}}">{{marketLink}}</a><br>
+        <b>Logo: </b><img src="{{marketLogo}}"><br>
+        <b>Currency: </b>{{marketCurrency}}<br>
+    </p>
+  </body>
+</html>
