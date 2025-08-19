@@ -5,7 +5,7 @@ module.exports = {
   currency: "AU$",
   country: "Australia",
 
-  products: [
+  productsArray: [
     { id: 1, name: "Monster Original", price: 3.50, ticketPrice: 3.50, url: "https://example.com/original", flavor: "original", inStock: true, isSale: false, salePrice: null },
     { id: 2, name: "Monster Ultra", price: 3.20, ticketPrice: 3.80, url: "https://example.com/ultra", flavor: "ultra", inStock: true, isSale: true, salePrice: 3.20 },
     { id: 3, name: "Monster Ultra Violet", price: 4.00, ticketPrice: 4.00, url: "https://example.com/ultraviolet", flavor: "ultraviolet", inStock: false, isSale: false, salePrice: null },
@@ -20,16 +20,21 @@ module.exports = {
     { id: 12, name: "Monster Papillon", price: 4.00, ticketPrice: 4.00, url: "https://example.com/papillion", flavor: "papillion", inStock: true, isSale: false, salePrice: null },
     { id: 13, name: "Monster Original (No Sugar)", price: 3.00, ticketPrice: 3.60, url: "https://example.com/original-nosugar", flavor: "original-nosugar", inStock: true, isSale: true, salePrice: 3.00 },
   ],
-
+  async products(){
+    return this.productsArray;
+  },
   async searchProducts(query) {
-    return this.products.filter(p => !query || p.name.toLowerCase().includes(query.toLowerCase()));
+    pa = await this.products();
+    return pa.filter(p => !query || p.name.toLowerCase().includes(query.toLowerCase()));
   },
 
   async getAllFlavors() {
-    return this.products.map(p => p.flavor);
+    pa = await this.products();
+    return pa.map(p => p.flavor);
   },
 
   async getFlavorInfo(flavor) {
-    return this.products.find(p => p.flavor === flavor) || null;
+    pa = await this.products();
+    return pa.find(p => p.flavor === flavor) || null;
   },
 };

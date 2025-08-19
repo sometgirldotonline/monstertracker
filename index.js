@@ -16,8 +16,9 @@ app.use(express.static('static'));
 function mergeStores(stores) {
   const grouped = {};
 
-  stores.forEach(store => {
-    store.products.forEach(item => {
+  stores.forEach(async store => {
+    sp = await store.products();
+    sp.forEach(item => {
       const product = {
         ...item,
         storeName: store.name,
@@ -216,7 +217,7 @@ app.get('/market/:id', async (req, res) => {
   html = html.replaceAll('{{marketLogo}}', market.storeLogo);
   html = html.replaceAll('{{marketCurrency}}', market.currency);
   productcards = ""
-  for (const p of market.products) {
+  for (const p of await market.products()) {
     productcards += card.productStoreSpecific(p, market.currency, market.id)
   }
   html = html.replace('{{productFlavorCards}}', productcards);

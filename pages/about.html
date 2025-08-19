@@ -9,55 +9,75 @@
   <link rel="stylesheet" href="../style.css" />
 </head>
 
-<body>
+<body class="bg-gray-950 text-white">
+
   <!-- Navigation -->
-  <nav class="sticky top-0 z-50 bg-black/20 backdrop-blur border-b border-green-500/20">
+  <nav class="sticky top-0 z-50 bg-black/30 backdrop-blur border-b border-green-500/20">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <h1 class="text-2xl font-bold text-green-400">{{appName}}</h1>
-      </div>
+      <h1 class="text-2xl font-bold text-green-400">{{appName}}</h1>
       <div class="flex space-x-2">
-        <a href="/" role="button" class="nav-btn">Home</a>
-        <a href="/markets" role="button" class="nav-btn">Stores</a>
-        <a href="/about" role="button" class="nav-btn active">About & Donate</a>
+        <a href="/" class="nav-btn">Home</a>
+        <a href="/markets" class="nav-btn">Stores</a>
+        <a href="/about" class="nav-btn active">About & Donate</a>
       </div>
     </div>
   </nav>
 
-  <!-- About Page -->
-  <div id="about" class="page active container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      
-      <!-- About Card -->
-      <div class="card rounded-xl p-6 f-ultrastrawberry flavor-accent-bg">
-        <h3 class="text-xl font-bold f-ultrastrawberry flavor-accent-text">
-          About Monster Finder (and its creator)
-        </h3>
-        <p class="text-white">
-            Monster Finder was created by <a href="https://novafurry.win">Lily (aka Nova)</a> to provide a service to find what store sells monster for cheapest.<br>
-            You can request more stores by emailing Lily at <a class="text-underline underline text-blue-400 bold" href="mailto:nova@novafurry.win">nova@novafurry.win</a>, sending a message on telegram <a class="text-underline underline text-blue-400 bold" href="https://t.me/novathefurry">@novathefurry</a> or posting an issue on the Github repo <a class="text-underline underline text-blue-400 bold" href="https://github.com/novafurry/monsterhunter">novafurry/monsterhunter</a>. If you know how to write JavaScript, and sniff network logs via Inspect Element or otherwise, you can build your own modules by forking and creating a pull request.<br>
-            Donations are glady accepted and appreciated- however you by no means need to donate.
+<main class="container mx-auto px-4 py-10 md:max-h-[85vh]">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:items-stretch md:max-h-[85vh]">
+
+    <!-- About Card -->
+    <section class="card rounded-xl p-6 f-ultrastrawberry flavor-accent-bg md:max-h-[85vh]">
+      <h2 class="text-xl font-bold f-ultrastrawberry flavor-accent-text mb-4">
+        About Monster Finder (and its creator)
+      </h2>
+        <p>
+          Monster Finder was created by <a href="https://novafurry.win" class="text-blue-400 underline">Lily (aka Nova)</a> 
+          to provide a service to find what store sells monster cheapest.<br><br>
+          You can request more stores by emailing Lily at 
+          <a class="text-blue-400 underline" href="mailto:nova@novafurry.win">nova@novafurry.win</a>, 
+          sending a message on telegram 
+          <a class="text-blue-400 underline" href="https://t.me/novathefurry">@novathefurry</a> 
+          or posting an issue on the Github repo 
+          <a class="text-blue-400 underline" href="https://github.com/novafurry/monsterhunter">novafurry/monsterhunter</a>.<br><br>
+          If you know JavaScript and can sniff network logs, you can build your own modules and send a pull request.<br><br>
+          Donations are gladly accepted and appreciated - however you by no means need to donate.
         </p>
+    </section>
+
+    <!-- Donate Column -->
+    <section class="grid grid-rows-2 gap-6 md:max-h-[85vh]">
+
+      <!-- Buy Me a Coffee -->
+      <div class="card rounded-xl overflow-hidden flex">
+        <iframe
+          src="https://buymeacoffee.com/widget/page/novafurry"
+          class="w-full h-full"
+          frameborder="0"
+          style="background:white;">
+        </iframe>
       </div>
 
-      <!-- Donate Section -->
-      <div class="grid grid-rows-2 gap-6">
-        <iframe class="card rounded-xl"
-          src="https://buymeacoffee.com/widget/page/novafurry"
-          frameborder="0"
-          style="width:100%;height:42vh;background-color:white;">
-        </iframe>
-
-        <div class="card rounded-xl p-6 f-ultrafiestamango flavor-accent-bg">
-          <h3 class="text-xl font-bold f-ultrafiestamango flavor-accent-text">Donate Monero</h3>
-          <img src="./moneroqr.png" alt="">
-          <p class="mt-4 text-white break-words">
-            XMR Address: <a class="text-underline underline text-blue-400 bold" href="monero:86BopZdPV8kGgKAD5Q3zJECcqACv4TV9DZKuXBYNTCzBVZyByW3Cq469wZ9YFCHkiUAciKutKJHnKQMPrM6pkrxdH1WpUSW"><code class="block text-xs">86BopZdPV8kGgKAD5Q3zJECcqACv4TV9DZKuXBYNTCzBVZyByW3Cq469wZ9YFCHkiUAciKutKJHnKQMPrM6pkrxdH1WpUSW</code></a>
+      <!-- Monero -->
+      <div class="card rounded-xl p-6 f-ultrafiestamango flavor-accent-bg flex flex-col">
+        <h2 class="text-lg font-bold f-ultrafiestamango flavor-accent-text mb-4">
+          Donate Monero
+        </h2>
+        <div class="flex-grow flex flex-col">
+          <img src="./moneroqr.png" alt="Monero QR" style="height: 40%">          <p class="text-center break-words text-xs">
+            XMR Address:
+            <a href="monero:86BopZdPV8kGgKAD5Q3zJECcqACv4TV9DZKuXBYNTCzBVZyByW3Cq469wZ9YFCHkiUAciKutKJHnKQMPrM6pkrxdH1WpUSW"
+               class="text-blue-400 underline">
+              <code>86BopZdPV8kGgKAD5Q3zJECcqACv4TV9DZKuXBYNTCzBVZyByW3Cq469wZ9YFCHkiUAciKutKJHnKQMPrM6pkrxdH1WpUSW</code>
+            </a>
           </p>
         </div>
       </div>
-    </div>
-  </div>
-</body>
 
+    </section>
+  </div>
+</main>
+
+
+</body>
 </html>
