@@ -133,7 +133,7 @@ opacity: 0.8;
   background: rgba(71, 85, 105, .5);
   padding: 12px;
   border-radius: 8px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
 }
 
 .store-stat-badge {
@@ -192,4 +192,10 @@ h1 img {
 .wasprice::before{
   content: " was ";
   font-size: 0.8em;
+}
+
+.card.flavor-accent-bg h3.flavor-accent-text{
+  min-height: calc(2 * 1.3em); 
+  height: calc(2 * 1.3em); 
+  max-height: calc(2 * 1.3em);
 }

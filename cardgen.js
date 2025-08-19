@@ -17,31 +17,36 @@ cardgen = {
     },
     productMultiStore: function (stores, currencySymbol) {
         function buildItem(obj){
-            return `<div class="price-row flex justify-between items-center">
+            return `
+        <a role="button" href="${obj.url}" class="mt-2 block">
+            <div class="price-row flex justify-between items-center">
             <div class="flex items-center space-x-3">
               <span class="font-medium">${obj.storeName}</span>
             </div>
-            <span class="text-xl font-bold">${currencySymbol}${obj.price}</span>
-          </div>`
+            <span class="text-xl font-bold">${obj.storeCurrency}${obj.price}</span>
+          </div></a>`
         }
         product = stores[0] // best guess at data for products?
         sortedProducts = stores.sort((a, b) => a.price - b.price);
         bestPriceProduct = sortedProducts.shift()
+        console.log(product)
         return `
     <div class="card rounded-xl p-6 f-${product.flavor} flavor-accent-bg">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold f-${product.flavor} flavor-accent-text">${product.name}</h3>
         </div>
-        <div class="space-y-3 mb-4">
+        <div class="space-y-3 mb-2">
             <img src="/flavorImages/${product.flavor}.webp" alt="Product Image for ${product.name}">
         </div>
-        <div class="space-y-3 mb-4">
+        <div class="space-y-3">
+        <a role="button" href="${bestPriceProduct.url}" class="mt-2 block">
            <div class="best-price rounded-lg p-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
               <span class="font-medium">${bestPriceProduct.storeName}</span>
             </div>
-            <span class="text-xl font-bold text-green-400">${currencySymbol}${bestPriceProduct.price}</span>
+            <span class="text-xl font-bold text-green-400">${bestPriceProduct.storeCurrency}${bestPriceProduct.price}</span>
           </div>
+          </a>
           ${
             sortedProducts.map(buildItem).join("")
           }
@@ -72,7 +77,7 @@ cardgen = {
             <span class="text-xl font-bold">${market.currency}</span>
           </div>
         </div>
-        <a role="button" class="w-full mt-4 btn-primary" href="/markets/${market.id}">View Flavors</a>
+        <a role="button" class="w-full mt-4 btn-primary" href="/market/${market.id}">View Flavors</a>
     </div>
         `
     }

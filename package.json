@@ -6,8 +6,6 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
-    "livereload": "^0.10.3",
-    "connect-livereload": "^0.6.1",
     "express": "^4.18.2"
   },
   "devDependencies": {

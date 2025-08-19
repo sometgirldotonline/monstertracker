@@ -2,8 +2,8 @@ module.exports = {
   name: "Budget Store",
   website: "https://example.com",
   storeLogo: "/logos/monsterlogo.png",
-  currency: "AUD",
-  country: "Australia",
+  currency: "NZ$",
+  country: "Zew Nealand",
 
   products: [
     { id: 101, name: "Monster Original", price: 2.50, ticketPrice: 2.50, url: "https://example.com/original", flavor: "original", inStock: true, isSale: false, salePrice: null },

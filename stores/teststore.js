@@ -2,7 +2,7 @@ module.exports = {
   name: "Test Store",
   website: "https://example.com",
   storeLogo: "/logos/monsterlogo.png",
-  currency: "AUD",
+  currency: "AU$",
   country: "Australia",
 
   products: [
