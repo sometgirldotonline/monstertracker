@@ -1,0 +1,46 @@
+<!-- Display a loading screen- this page will have just the toolbar- no navigation, a spinner/indeterminate loading bar, it will make a request to /mainpage on load, when the request completes, it overwrites the webpages html client side with the response -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monster Finder - Loading</title>
+  <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-black/20 backdrop-blur border-b border-green-500/20">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <h1 class="text-2xl font-bold text-green-400">Monster Finder</h1>
+      </div>
+    </div>
+  </nav>
+  <div id="loading" class="flex flex-col justify-center items-center h-[70vh]">
+    <h2 class="text-xl font-bold text-green-400 mb-8">Loading...</h2>
+    <div class="animate-spin inline-block w-24 h-24 border-8 rounded-full border-green-400 border-t-transparent" role="status">
+      <span class="visually-hidden" style="opacity:0;">Loading...</span>
+    </div>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch("/internal"+location.pathname || "/internal/");
+        if (response.ok) {
+          const html = await response.text();
+          document.documentElement.innerHTML = html;
+        } else {
+          document.getElementById('loading').innerHTML = '<p class="text-red-500">Failed to load main page.</p>';
+        }
+      } catch (err) {
+        document.getElementById('loading').innerHTML = '<p class="text-red-500">An error occurred while loading the main page.</p>';
+        console.error(err);
+        // Optionally, you could redirect the user or show a retry button
+      }    });
+  </script>
+</body>
+
+</html>

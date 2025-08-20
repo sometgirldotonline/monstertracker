@@ -1,40 +1,162 @@
+const axios = require('axios').default;
+const tough = require('tough-cookie');
+const { wrapper } = require('axios-cookiejar-support');
+
+const cookieJar = new tough.CookieJar();
+const client = wrapper(axios.create({ jar: cookieJar, withCredentials: true }));
+
+fmap = {
+    "Ultra": "ultra",
+    "Ultra Gold": "ultragold",
+    "Ultra Violet": "ultraviolet",
+    "Ultra Strawberry Dreams": "ultrastrawberry",
+    "Pipeline Punch": "pipelinepunch",
+    "Mango Loco": "mangoloco",
+    "Ultra Fantasy Ruby Red": "ultrafantasyrubyred",
+    "Ultra Peachy Keen": "ultrapeachy",
+    "Ultra Fiesta Mango": "ultrafiestamango",
+    "Original Zero Sugar": "original-nosugar",
+    "Aussie Lemonade": "aussielemonade",
+    "Green": "original",
+    "Papillon": "papillion"
+}
+
+hasInitialised = false;
 module.exports = {
   name: "Woolworths Australia",
   website: "https://woolworths.com.au",
-  storeLogo: "/logos/monsterlogo.png",
+  storeLogo: "https://cdn0.woolworths.media/content/content/icon-header-logo-only.png",
   currency: "AU$",
   country: "Australia",
 
-  productsArray: [
-    { id: 1, name: "Monster Original", price: 3.50, ticketPrice: 3.50, url: "https://example.com/original", flavor: "original", inStock: true, isSale: false, salePrice: null },
-    { id: 2, name: "Monster Ultra", price: 3.20, ticketPrice: 3.80, url: "https://example.com/ultra", flavor: "ultra", inStock: true, isSale: true, salePrice: 3.20 },
-    { id: 3, name: "Monster Ultra Violet", price: 4.00, ticketPrice: 4.00, url: "https://example.com/ultraviolet", flavor: "ultraviolet", inStock: false, isSale: false, salePrice: null },
-    { id: 4, name: "Monster Mango Loco", price: 3.70, ticketPrice: 4.20, url: "https://example.com/mangoloco", flavor: "mangoloco", inStock: true, isSale: true, salePrice: 3.70 },
-    { id: 5, name: "Monster Ultra Fantasy Ruby Red", price: 4.50, ticketPrice: 4.50, url: "https://example.com/ultrafantasyrubyred", flavor: "ultrafantasyrubyred", inStock: false, isSale: false, salePrice: null },
-    { id: 6, name: "Monster Ultra Fiesta Mango", price: 4.20, ticketPrice: 4.20, url: "https://example.com/ultrafiestamango", flavor: "ultrafiestamango", inStock: true, isSale: false, salePrice: null },
-    { id: 7, name: "Monster Pipeline Punch", price: 3.90, ticketPrice: 4.30, url: "https://example.com/pipelinepunch", flavor: "pipelinepunch", inStock: true, isSale: true, salePrice: 3.90 },
-    { id: 8, name: "Monster Aussie Lemonade", price: 4.10, ticketPrice: 4.10, url: "https://example.com/aussielemonade", flavor: "aussielemonade", inStock: false, isSale: false, salePrice: null },
-    { id: 9, name: "Monster Ultra Gold", price: 4.00, ticketPrice: 4.00, url: "https://example.com/ultragold", flavor: "ultragold", inStock: true, isSale: false, salePrice: null },
-    { id: 10, name: "Monster Ultra Peachy Keen", price: 3.60, ticketPrice: 4.20, url: "https://example.com/ultrapeachy", flavor: "ultrapeachy", inStock: true, isSale: true, salePrice: 3.60 },
-    { id: 11, name: "Monster Ultra Strawberry Dreams", price: 4.50, ticketPrice: 4.50, url: "https://example.com/ultrastrawberry", flavor: "ultrastrawberry", inStock: false, isSale: false, salePrice: null },
-    { id: 12, name: "Monster Papillon", price: 4.00, ticketPrice: 4.00, url: "https://example.com/papillion", flavor: "papillion", inStock: true, isSale: false, salePrice: null },
-    { id: 13, name: "Monster Original (No Sugar)", price: 3.00, ticketPrice: 3.60, url: "https://example.com/original-nosugar", flavor: "original-nosugar", inStock: true, isSale: true, salePrice: 3.00 },
-  ],
-  async products(){
+  productsArray: [],
+  woolworthsResponse: {},
+
+  init: async function () {
+    console.log("Initialising Woolworths AU");
+    try {
+      this.productsArray = [];
+      // First request to get cookies
+      console.log("Sending cookie request");
+      await client.get("https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy");
+
+      // Prepare headers for the second request
+      const myHeaders = {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0"
+      };
+
+      const raw = {
+        "Filters": [
+          { "Key": "Level1Categories", "Items": [{ "Term": "1_5AF3A0A" }] },
+          { "Key": "SoldBy", "Items": [{ "Term": "Woolworths" }] },
+          { "Key": "Brand", "Items": [{ "Term": "Monster" }, { "Term": "Monster Energy" }] }
+        ],
+        "IsSpecial": false,
+        "Location": "/shop/search/products?searchTerm=Monster%20Energy&pageNumber=1&sortBy=TraderRelevance&filterLevel1Categories(1_5AF3A0A);SoldBy(Woolworths);Brand(Monster,Monster%20Energy)",
+        "PageNumber": 1,
+        "PageSize": 36,
+        "SearchTerm": "Monster Energy",
+        "SortType": "TraderRelevance",
+        "IsHideUnavailableProducts": false,
+        "IsRegisteredRewardCardPromotion": null,
+        "ExcludeSearchTypes": ["UntraceableVendors"],
+        "GpBoost": 0,
+        "GroupEdmVariants": false,
+        "EnableAdReRanking": false
+      };
+
+      // Second request to get product list
+      console.log("Requesting list of monster products.");
+      const res2 = await client.post(
+        "https://www.woolworths.com.au/apis/ui/Search/products",
+        raw,
+        { headers: myHeaders }
+      );
+
+      const json = res2.data;
+      this.woolworthsResponse = json;
+      // console.log("Got products", json.Products);
+
+      // Parse products
+      for (let i of json.Products) {
+        let desc = i.Products[0].DisplayName;
+
+        // --- Type ---
+        let type;
+        if (/(\d+)\s*[xX]\s*\d+\s?(?:mL|L)/.test(desc) || /\bx\s*\d+\s*pack/i.test(desc) || /\d+\s*pack/i.test(desc)) {
+          type = "Multipack";
+          continue;
+        } else {
+          type = "Can";
+        }
+
+        // --- Size ---
+        let size;
+        if (type === "Multipack") {
+          let count = desc.match(/(\d+)\s*pack/i) || desc.match(/x\s*(\d+)/i);
+          let volume = desc.match(/(\d+)\s?(mL|L)/i);
+          if (count && volume) {
+            size = `${count[1]}x${volume[0]} cans`;
+          } else {
+            size = "Unknown multipack size";
+          }
+        } else {
+          size = desc.match(/\d+\s?(?:mL|L)/i)?.[0] || "Unknown size";
+        }
+
+        // --- Clean Description ---
+        desc = desc.replace(/\d+\s?(?:mL|L)/gi, "").trim();
+        desc = desc.replace(/Multipack|Cans?/gi, "").trim();
+
+        // --- Flavor ---
+        let flavor = desc
+          .split("<br>")[0]
+          .replace(/Monster/gi, "")
+          .replace(/Energy/gi, "")
+          .replace(/Drink/gi, "")
+          .replace(/Can(s)?/gi, "")
+          .replace("Flavour", "")
+          .replace(/\s+/g, " ")
+          .trim();
+          this.productsArray.push({
+            id: i.Products[0].Stockcode,
+            name: i.Products[0].DisplayName,
+            price: i.Products[0].Price,
+            ticketPrice: i.Products[0].WasPrice,
+            flavor: fmap[flavor] || flavor.toLowerCase().replace(/\s+/g, "-"),
+            inStock: i.Products[0].IsInStock,
+            isSale: i.Products[0].Price != i.Products[0].WasPrice,
+            salePrice: i.Products[0].Price
+          });
+        }
+        hasInitialised = true;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  async products() {
+    if(!hasInitialised) await this.init();
     return this.productsArray;
   },
+
   async searchProducts(query) {
-    pa = await this.products();
+    if(!hasInitialised) await this.init();
+    const pa = await this.products();
     return pa.filter(p => !query || p.name.toLowerCase().includes(query.toLowerCase()));
   },
 
   async getAllFlavors() {
-    pa = await this.products();
+    if(!hasInitialised) await this.init();
+    const pa = await this.products();
     return pa.map(p => p.flavor);
   },
 
   async getFlavorInfo(flavor) {
-    pa = await this.products();
+    if(!hasInitialised) await this.init();
+    const pa = await this.products();
     return pa.find(p => p.flavor === flavor) || null;
   },
 };

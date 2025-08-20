@@ -9,7 +9,22 @@ const e = require('express');
 const app = express();
 const port = 3010;
 const markets = loadStores();
-const flavormap = {}
+const flavormap = {
+    "ultra": "Ultra",
+    "ultragold": "Ultra Gold",
+    "ultraviolet": "Ultra Violet",
+    "ultrastrawberry": "Ultra Strawberry Dreams",
+    "pipelinepunch": "Pipeline Punch",
+    "mangoloco": "Mango Loco",
+    "ultrafantasyrubyred": "Ultra Fantasy Ruby Red",
+    "ultrapeachy": "Ultra Peachy Keen",
+    "ultrafiestamango": "Ultra Fiesta Mango",
+    "original-nosugar": "Original Zero Sugar",
+    "aussielemonade": "Aussie Lemonade",
+    "original": "Green",
+    "papillion": "Papillon"
+}
+
 const appname = "Monster Finder"
 const addtopageend = ``
 app.use(express.static('static'));
@@ -44,7 +59,21 @@ function mergeStores(stores) {
   return grouped;
 }
 
+// Display a loading screen- this page will have just the toolbar- no navigation, a spinner/indeterminate loading bar, it will make a request to /mainpage on load, when the request completes, it overwrites the webpages html client side with the response
 app.get('/', async (req, res) => {
+  const templatePath = path.join(__dirname, 'pages', 'loading.html');
+  let html = fs.readFileSync(templatePath, 'utf8');
+  res.send(html);
+});
+
+app.get('/market/:id', async (req, res) => {
+  const templatePath = path.join(__dirname, 'pages', 'loading.html');
+  let html = fs.readFileSync(templatePath, 'utf8');
+  res.send(html);
+});
+
+
+app.get('/internal/', async (req, res) => {
   console.log(req.query.country, req.query.flavor)
   if (!req.query.country && !req.query.flavor && !req.query.q) {
     const templatePath = path.join(__dirname, 'pages', 'index.html');
@@ -100,7 +129,7 @@ app.get('/', async (req, res) => {
       ) {
         if (allitems[flavor].some(item => item.storeCountry == selectedcountry) && (selectedcountry !== "" || selectedcountry)) {
           if (flavor !== "" || flavor) {
-            console.log(allitems[flavor].some(item => item.storeCountry == selectedcountry), flavor == selectedflavor, selectedflavor == undefined, selectedflavor == "")
+            // console.log(allitems[flavor].some(item => item.storeCountry == selectedcountry), flavor == selectedflavor, selectedflavor == undefined, selectedflavor == "")
             if (flavor == selectedflavor || selectedflavor == undefined || selectedflavor == "") {
               markethtml += card.productMultiStore(allitems[flavor].filter((item) => item.storeCountry == selectedcountry));
             }
@@ -204,7 +233,7 @@ app.get('/markets/by-country/:country', async (req, res) => {
   html += addtopageend;
   res.send(html);
 });
-app.get('/market/:id', async (req, res) => {
+app.get('/internal/market/:id', async (req, res) => {
   const { id } = req.params;
   console.log("ID", id)
   const market = markets.find(m => m.id === id);

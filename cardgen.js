@@ -29,7 +29,6 @@ cardgen = {
         product = stores[0] // best guess at data for products?
         sortedProducts = stores.sort((a, b) => a.price - b.price);
         bestPriceProduct = sortedProducts.shift()
-        console.log(product)
         return `
     <div class="card rounded-xl p-6 f-${product.flavor} flavor-accent-bg">
         <div class="flex justify-between items-center mb-4">
