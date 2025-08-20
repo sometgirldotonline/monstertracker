@@ -82,7 +82,7 @@ module.exports = {
       // Parse products
       for (let i of json.Products) {
         let desc = i.Products[0].DisplayName;
-
+        if(i.Products[0].Price == null) continue;
         // --- Type ---
         let type;
         if (/(\d+)\s*[xX]\s*\d+\s?(?:mL|L)/.test(desc) || /\bx\s*\d+\s*pack/i.test(desc) || /\d+\s*pack/i.test(desc)) {
