@@ -7,10 +7,10 @@ const cookieJar = new tough.CookieJar();
 const client = wrapper(axios.create({ 
   jar: cookieJar, 
   withCredentials: true,
-  timeout: 15000, // 15 second timeout
+  timeout: 60000, // 15 second timeout
   headers: {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0'
-  }
+  },
 }));
 
 fmap = {
@@ -42,11 +42,13 @@ module.exports = {
 
   async init() {
     console.log("Initialising Woolworths AU");
+    let res1;
+    let res2;
     try {
       this.productsArray = [];
       // First request to get cookies
       console.log("Sending cookie request");
-      await client.get("https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy");
+      res1 = await client.get("http://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy");
 
       // Prepare headers for the second request
       const myHeaders = {
@@ -77,8 +79,8 @@ module.exports = {
 
       // Second request to get product list
       console.log("Requesting list of monster products.");
-      const res2 = await client.post(
-        "https://www.woolworths.com.au/apis/ui/Search/products",
+      res2 = await client.post(
+        "http://www.woolworths.com.au/apis/ui/Search/products",
         raw,
         { headers: myHeaders }
       );
@@ -151,6 +153,7 @@ module.exports = {
       hasInitialised = true;
     } catch (error) {
       console.error("Woolworths initialization failed:", error.message);
+      // console.error(error.response.data)
       // Set as initialized even if failed to prevent retries
       hasInitialised = true;
       this.productsArray = [];
