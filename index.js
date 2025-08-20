@@ -9,6 +9,7 @@ const e = require('express');
 const app = express();
 const port = 3010;
 const markets = loadStores();
+
 const flavormap = {
     "ultra": "Ultra",
     "ultragold": "Ultra Gold",
@@ -28,27 +29,140 @@ const flavormap = {
 const appname = "Monster Finder"
 const addtopageend = ``
 app.use(express.static('static'));
-function mergeStores(stores) {
+
+// Request-scoped cache to prevent multiple initializations
+let requestCache = null;
+let cacheTimestamp = 0;
+let isLoading = false;
+const CACHE_DURATION = 30000; // 30 seconds
+
+// Optimized data fetching for serverless
+async function getStoreData() {
+  // Check if we have fresh cached data
+  if (requestCache && (Date.now() - cacheTimestamp) < CACHE_DURATION) {
+    console.log('Using cached store data');
+    return requestCache;
+  }
+
+  // Check if another request is already loading
+  if (isLoading) {
+    console.log('Another request is loading, waiting...');
+    // Wait up to 10 seconds for the other request to complete
+    let attempts = 0;
+    while (isLoading && attempts < 100) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+      if (requestCache && (Date.now() - cacheTimestamp) < CACHE_DURATION) {
+        console.log('Using cache from parallel request');
+        return requestCache;
+      }
+    }
+  }
+
+  isLoading = true;
+  console.log('Fetching fresh store data...');
+  const start = Date.now();
+  
+  try {
+    // Initialize all stores in parallel with timeout handling
+    const initResults = await Promise.allSettled(
+      markets.map(async market => {
+        if (market.init && typeof market.init === 'function') {
+          try {
+            await market.init();
+            return { success: true, store: market.name };
+          } catch (error) {
+            console.error(`Failed to initialize ${market.name}:`, error.message);
+            return { success: false, store: market.name, error: error.message };
+          }
+        }
+        return { success: true, store: market.name };
+      })
+    );
+    
+    // Log initialization results
+    const successful = initResults.filter(r => r.status === 'fulfilled' && r.value.success).length;
+    const failed = initResults.filter(r => r.status === 'rejected' || (r.status === 'fulfilled' && !r.value.success)).length;
+    console.log(`Store initialization: ${successful} successful, ${failed} failed`);
+    
+    // Get all data in parallel
+    const [allItems, flavors, countries] = await Promise.all([
+      mergeStores(markets),
+      getFlavors(),
+      getCountries()
+    ]);
+    
+    console.log(`Store data fetched in ${Date.now() - start}ms`);
+    
+    // Cache the result
+    requestCache = { allItems, flavors, countries };
+    cacheTimestamp = Date.now();
+    
+    return requestCache;
+  } finally {
+    isLoading = false;
+  }
+}
+
+async function getFlavors() {
+  const flavorArrays = await Promise.allSettled(
+    markets.map(async s => {
+      try {
+        return await s.getAllFlavors();
+      } catch (error) {
+        console.error(`Failed to get flavors from ${s.name}:`, error.message);
+        return [];
+      }
+    })
+  );
+  
+  return flavorArrays
+    .filter(result => result.status === 'fulfilled')
+    .map(result => result.value)
+    .flat()
+    .filter((v, i, a) => a.indexOf(v) === i);
+}
+
+function getCountries() {
+  return markets.map(s => s.country).filter((v, i, a) => a.indexOf(v) === i);
+}
+
+async function mergeStores(stores) {
   const grouped = {};
 
-  stores.forEach(async store => {
-    sp = await store.products();
-    sp.forEach(item => {
-      const product = {
-        ...item,
-        storeName: store.name,
-        storeLogo: store.storeLogo,
-        storeCurrency: store.currency,
-        storeCountry: store.country,
-      };
-
-      // create array if doesn't exist
-      if (!grouped[item.flavor]) {
-        grouped[item.flavor] = [];
+  // Use Promise.allSettled to handle failed stores gracefully
+  const storeProducts = await Promise.allSettled(
+    stores.map(async store => {
+      try {
+        const products = await store.products();
+        return { store, products };
+      } catch (error) {
+        console.error(`Failed to get products from ${store.name}:`, error.message);
+        return { store, products: [] };
       }
+    })
+  );
 
-      grouped[item.flavor].push(product);
-    });
+  storeProducts.forEach(result => {
+    if (result.status === 'fulfilled') {
+      const { store, products } = result.value;
+      products.forEach(item => {
+        const product = {
+          ...item,
+          storeName: store.name,
+          storeLogo: store.storeLogo,
+          storeCurrency: store.currency,
+          storeCountry: store.country,
+        };
+
+        // create array if doesn't exist
+        if (!grouped[item.flavor]) {
+          grouped[item.flavor] = [];
+        }
+
+        grouped[item.flavor].push(product);
+      });
+    }
   });
 
   // sort each flavor by price
@@ -74,116 +188,132 @@ app.get('/market/:id', async (req, res) => {
 
 
 app.get('/internal/', async (req, res) => {
-  console.log(req.query.country, req.query.flavor)
-  if (!req.query.country && !req.query.flavor && !req.query.q) {
-    const templatePath = path.join(__dirname, 'pages', 'index.html');
-    let html = fs.readFileSync(templatePath, 'utf8');
-    let markethtml = ""
-    let allitems = mergeStores(markets);
-    const countries = (await Promise.all(markets.map(s => s.country)))
-      .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-      .map(countryi => `<option value='${countryi}'>${countryi.charAt(0).toUpperCase() + countryi.slice(1)}</option>`)
-      .join('');
-    // console.log(allitems)
-    const flavorfilters = (await Promise.all(markets.map(s => s.getAllFlavors())))
-      .flat()                             // merge all flavor arrays
-      .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-      .map(flavor => `<option value='${flavor}'>${flavormap.hasOwnProperty(flavor) ? flavormap[flavor] : flavor.charAt(0).toUpperCase() + flavor.slice(1)}</option>`)
-      .join('');
+  console.log(req.query.country, req.query.flavor);
+  
+  try {
+    const { allItems, flavors, countries } = await getStoreData();
+    
+    if (!req.query.country && !req.query.flavor && !req.query.q) {
+      const templatePath = path.join(__dirname, 'pages', 'index.html');
+      let html = fs.readFileSync(templatePath, 'utf8');
+      let markethtml = ""
+      
+      const countryOptions = countries
+        .map(countryi => `<option value='${countryi}'>${countryi.charAt(0).toUpperCase() + countryi.slice(1)}</option>`)
+        .join('');
+      
+      const flavorfilters = flavors
+        .map(flavor => `<option value='${flavor}'>${flavormap.hasOwnProperty(flavor) ? flavormap[flavor] : flavor.charAt(0).toUpperCase() + flavor.slice(1)}</option>`)
+        .join('');
 
-
-    for (const flavor in allitems) {
-      markethtml += card.productMultiStore(allitems[flavor], allitems[flavor].storeCurrency);
-    }
-    html = html.replaceAll("{{appName}}", appname);
-    html = html.replaceAll("{{results}}", markethtml);
-    html = html.replaceAll("{{query}}", "");
-    html = html.replaceAll("{{countrylist}}", countries);
-    html = html.replaceAll("{{flavorfilters}}", flavorfilters);
-    html += addtopageend;
-    res.send(html);
-  }
-  else {
-    const selectedcountry = req.query.country;
-    const selectedflavor = req.query.flavor;
-    const search = req.query.q;
-    const flavorfilters = (await Promise.all(markets.map(s => s.getAllFlavors())))
-      .flat()                             // merge all flavor arrays
-      .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-      .map(flavor => `<option value='${flavor}' ${selectedflavor == flavor ? "selected" : ""}>${flavormap.hasOwnProperty(flavor) ? flavormap[flavor] : flavor.charAt(0).toUpperCase() + flavor.slice(1)}</option>`)
-      .join('');
-
-    const templatePath = path.join(__dirname, 'pages', 'index.html');
-    let html = fs.readFileSync(templatePath, 'utf8');
-    let markethtml = ""
-    let allitems = mergeStores(markets);
-    const countries = (await Promise.all(markets.map(s => s.country)))
-      .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-      .map(countryi => `<option value='${countryi}' ${selectedcountry == countryi ? "selected" : ""}>${countryi.charAt(0).toUpperCase() + countryi.slice(1)}</option>`)
-      .join('');
-
-    for (const flavor in allitems) {
-      if (
-        !search || 
-        allitems[flavor][0].name.toLowerCase().includes(search.toLowerCase())
-      ) {
-        if (allitems[flavor].some(item => item.storeCountry == selectedcountry) && (selectedcountry !== "" || selectedcountry)) {
-          if (flavor !== "" || flavor) {
-            // console.log(allitems[flavor].some(item => item.storeCountry == selectedcountry), flavor == selectedflavor, selectedflavor == undefined, selectedflavor == "")
-            if (flavor == selectedflavor || selectedflavor == undefined || selectedflavor == "") {
-              markethtml += card.productMultiStore(allitems[flavor].filter((item) => item.storeCountry == selectedcountry));
-            }
-          } else {
-            markethtml += card.productMultiStore(allitems[flavor].filter((item) => item.storeCountry == selectedcountry));
-          }
+      for (const flavor in allItems) {
+        if (allItems[flavor] && allItems[flavor].length > 0) {
+          markethtml += card.productMultiStore(allItems[flavor], allItems[flavor][0]?.storeCurrency);
         }
-        else if (selectedcountry == "" || !selectedcountry) {
-          console.log("here whe go")
-          if (flavor !== "" || flavor) {
-            if (flavor == selectedflavor || selectedflavor == undefined || selectedflavor == "") {
-              markethtml += card.productMultiStore(allitems[flavor]);
+      }
+      html = html.replaceAll("{{appName}}", appname);
+      html = html.replaceAll("{{results}}", markethtml);
+      html = html.replaceAll("{{query}}", "");
+      html = html.replaceAll("{{countrylist}}", countryOptions);
+      html = html.replaceAll("{{flavorfilters}}", flavorfilters);
+      html += addtopageend;
+      res.send(html);
+    }
+    else {
+      const selectedcountry = req.query.country;
+      const selectedflavor = req.query.flavor;
+      const search = req.query.q;
+      
+      const flavorfilters = flavors
+        .map(flavor => `<option value='${flavor}' ${selectedflavor == flavor ? "selected" : ""}>${flavormap.hasOwnProperty(flavor) ? flavormap[flavor] : flavor.charAt(0).toUpperCase() + flavor.slice(1)}</option>`)
+        .join('');
+
+      const templatePath = path.join(__dirname, 'pages', 'index.html');
+      let html = fs.readFileSync(templatePath, 'utf8');
+      let markethtml = ""
+      
+      const countryOptions = countries
+        .map(countryi => `<option value='${countryi}' ${selectedcountry == countryi ? "selected" : ""}>${countryi.charAt(0).toUpperCase() + countryi.slice(1)}</option>`)
+        .join('');
+
+      for (const flavor in allItems) {
+        if (
+          !search || 
+          (allItems[flavor] && allItems[flavor].length > 0 && allItems[flavor][0].name.toLowerCase().includes(search.toLowerCase()))
+        ) {
+          if (allItems[flavor].some(item => item.storeCountry == selectedcountry) && (selectedcountry !== "" || selectedcountry)) {
+            if (flavor !== "" || flavor) {
+              if (flavor == selectedflavor || selectedflavor == undefined || selectedflavor == "") {
+                const filteredItems = allItems[flavor].filter((item) => item.storeCountry == selectedcountry);
+                if (filteredItems.length > 0) {
+                  markethtml += card.productMultiStore(filteredItems);
+                }
+              }
+            } else {
+              const filteredItems = allItems[flavor].filter((item) => item.storeCountry == selectedcountry);
+              if (filteredItems.length > 0) {
+                markethtml += card.productMultiStore(filteredItems);
+              }
             }
-          } else {
-            markethtml += card.productMultiStore(allitems[flavor]);
+          }
+          else if (selectedcountry == "" || !selectedcountry) {
+            console.log("here whe go")
+            if (flavor !== "" || flavor) {
+              if (flavor == selectedflavor || selectedflavor == undefined || selectedflavor == "") {
+                if (allItems[flavor] && allItems[flavor].length > 0) {
+                  markethtml += card.productMultiStore(allItems[flavor]);
+                }
+              }
+            } else {
+              if (allItems[flavor] && allItems[flavor].length > 0) {
+                markethtml += card.productMultiStore(allItems[flavor]);
+              }
+            }
           }
         }
       }
-
+      html = html.replaceAll("{{appName}}", appname);
+      html = html.replaceAll("{{results}}", markethtml);
+      html = html.replaceAll("{{flavorfilters}}", flavorfilters);
+      html = html.replaceAll("{{countrylist}}", countryOptions);
+      html = html.replaceAll("{{query}}", search);
+      html += addtopageend;
+      res.send(html);
     }
-    html = html.replaceAll("{{appName}}", appname);
-    html = html.replaceAll("{{results}}", markethtml);
-    html = html.replaceAll("{{flavorfilters}}", flavorfilters);
-    html = html.replaceAll("{{countrylist}}", countries);
-    html = html.replaceAll("{{query}}", search);
-    html += addtopageend;
-    res.send(html);
+  } catch (error) {
+    console.error('Error in /internal/ route:', error);
+    res.status(500).send('Internal server error');
   }
 });
 
 app.get('/by-flavor/:flavor', async (req, res) => {
   const selectedflavor = req.params.flavor;
-  const templatePath = path.join(__dirname, 'pages', 'index.html');
-  let html = fs.readFileSync(templatePath, 'utf8');
-  let markethtml = ""
-  let allitems = mergeStores(markets);
-  // console.log(allitems)
-  const flavorfilters = (await Promise.all(markets.map(s => s.getAllFlavors())))
-    .flat()                             // merge all flavor arrays
-    .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-    .map(flavor => `<option value='${flavor}' ${selectedflavor == flavor ? "selected" : ""}>${flavormap.hasOwnProperty(flavor) ? flavormap[flavor] : flavor.charAt(0).toUpperCase() + flavor.slice(1)}</option>`)
-    .join('');
+  
+  try {
+    const { allItems, flavors } = await getStoreData();
+    
+    const templatePath = path.join(__dirname, 'pages', 'index.html');
+    let html = fs.readFileSync(templatePath, 'utf8');
+    let markethtml = ""
+    
+    const flavorfilters = flavors
+      .map(flavor => `<option value='${flavor}' ${selectedflavor == flavor ? "selected" : ""}>${flavormap.hasOwnProperty(flavor) ? flavormap[flavor] : flavor.charAt(0).toUpperCase() + flavor.slice(1)}</option>`)
+      .join('');
 
-
-  for (const flavor in allitems) {
-    if (flavor == selectedflavor) {
-      markethtml += card.productMultiStore(allitems[flavor], allitems[flavor].storeCurrency);
+    for (const flavor in allItems) {
+      if (flavor == selectedflavor && allItems[flavor] && allItems[flavor].length > 0) {
+        markethtml += card.productMultiStore(allItems[flavor], allItems[flavor][0]?.storeCurrency);
+      }
     }
+    html = html.replaceAll("{{appName}}", appname);
+    html = html.replaceAll("{{results}}", markethtml);
+    html = html.replaceAll("{{flavorfilters}}", flavorfilters);
+    html += addtopageend;
+    res.send(html);
+  } catch (error) {
+    console.error('Error in /by-flavor/ route:', error);
+    res.status(500).send('Internal server error');
   }
-  html = html.replaceAll("{{appName}}", appname);
-  html = html.replaceAll("{{results}}", markethtml);
-  html = html.replaceAll("{{flavorfilters}}", flavorfilters);
-  html += addtopageend;
-  res.send(html);
 });
 app.get("/about", async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'about.html');
@@ -193,45 +323,61 @@ app.get("/about", async (req, res) => {
   res.send(html);
 })
 app.get('/markets', async (req, res) => {
-  const templatePath = path.join(__dirname, 'pages', 'marketlist.html');
-  let html = fs.readFileSync(templatePath, 'utf8');
-  let markethtml = ""
-  const countries = (await Promise.all(markets.map(s => s.country)))
-    .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-    .map(country => `<option value='${country}'>${country.charAt(0).toUpperCase() + country.slice(1)}</option>`)
-    .join('');
+  try {
+    const { countries } = await getStoreData();
+    
+    const templatePath = path.join(__dirname, 'pages', 'marketlist.html');
+    let html = fs.readFileSync(templatePath, 'utf8');
+    let markethtml = ""
+    
+    const countryOptions = countries
+      .map(country => `<option value='${country}'>${country.charAt(0).toUpperCase() + country.slice(1)}</option>`)
+      .join('');
 
-  for (const market of markets) {
-    markethtml += card.storecard(market);
-  }
-
-  html = html.replaceAll("{{appName}}", appname);
-  html = html.replace("{{countrylist}}", countries)
-  html = html.replaceAll("{{marketCards}}", markethtml);
-  html += addtopageend;
-  res.send(html);
-});
-app.get('/markets/by-country/:country', async (req, res) => {
-  country = req.params.country;
-  const templatePath = path.join(__dirname, 'pages', 'marketlist.html');
-  let html = fs.readFileSync(templatePath, 'utf8');
-  let markethtml = ""
-  const countries = (await Promise.all(markets.map(s => s.country)))
-    .filter((v, i, a) => a.indexOf(v) === i) // dedupe
-    .map(countryi => `<option value='${countryi}' ${country == countryi ? "selected" : ""}>${countryi.charAt(0).toUpperCase() + countryi.slice(1)}</option>`)
-    .join('');
-
-  for (const market of markets) {
-    if (market.country.toUpperCase() == country.toUpperCase()) {
+    for (const market of markets) {
       markethtml += card.storecard(market);
     }
-  }
 
-  html = html.replaceAll("{{appName}}", appname);
-  html = html.replace("{{countrylist}}", countries)
-  html = html.replaceAll("{{marketCards}}", markethtml);
-  html += addtopageend;
-  res.send(html);
+    html = html.replaceAll("{{appName}}", appname);
+    html = html.replace("{{countrylist}}", countryOptions)
+    html = html.replaceAll("{{marketCards}}", markethtml);
+    html += addtopageend;
+    res.send(html);
+  } catch (error) {
+    console.error('Error in /markets route:', error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+app.get('/markets/by-country/:country', async (req, res) => {
+  const country = req.params.country;
+  
+  try {
+    const { countries } = await getStoreData();
+    
+    const templatePath = path.join(__dirname, 'pages', 'marketlist.html');
+    let html = fs.readFileSync(templatePath, 'utf8');
+    let markethtml = ""
+    
+    const countryOptions = countries
+      .map(countryi => `<option value='${countryi}' ${country == countryi ? "selected" : ""}>${countryi.charAt(0).toUpperCase() + countryi.slice(1)}</option>`)
+      .join('');
+
+    for (const market of markets) {
+      if (market.country.toUpperCase() == country.toUpperCase()) {
+        markethtml += card.storecard(market);
+      }
+    }
+
+    html = html.replaceAll("{{appName}}", appname);
+    html = html.replace("{{countrylist}}", countryOptions)
+    html = html.replaceAll("{{marketCards}}", markethtml);
+    html += addtopageend;
+    res.send(html);
+  } catch (error) {
+    console.error('Error in /markets/by-country/ route:', error);
+    res.status(500).send('Internal server error');
+  }
 });
 app.get('/internal/market/:id', async (req, res) => {
   const { id } = req.params;

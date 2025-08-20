@@ -2,8 +2,16 @@ const axios = require('axios').default;
 const tough = require('tough-cookie');
 const { wrapper } = require('axios-cookiejar-support');
 
+// Set reasonable timeouts for Woolworths API
 const cookieJar = new tough.CookieJar();
-const client = wrapper(axios.create({ jar: cookieJar, withCredentials: true }));
+const client = wrapper(axios.create({ 
+  jar: cookieJar, 
+  withCredentials: true,
+  timeout: 15000, // 15 second timeout
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0'
+  }
+}));
 
 fmap = {
     "Ultra": "ultra",
@@ -32,7 +40,7 @@ module.exports = {
   productsArray: [],
   woolworthsResponse: {},
 
-  init: async function () {
+  async init() {
     console.log("Initialising Woolworths AU");
     try {
       this.productsArray = [];
@@ -77,12 +85,18 @@ module.exports = {
 
       const json = res2.data;
       this.woolworthsResponse = json;
-      // console.log("Got products", json.Products);
+      
+      if (!json.Products || json.Products.length === 0) {
+        console.warn("No products returned from Woolworths API");
+        hasInitialised = true;
+        return;
+      }
 
       // Parse products
       for (let i of json.Products) {
         let desc = i.Products[0].DisplayName;
         if(i.Products[0].Price == null) continue;
+        
         // --- Type ---
         let type;
         if (/(\d+)\s*[xX]\s*\d+\s?(?:mL|L)/.test(desc) || /\bx\s*\d+\s*pack/i.test(desc) || /\d+\s*pack/i.test(desc)) {
@@ -120,20 +134,26 @@ module.exports = {
           .replace("Flavour", "")
           .replace(/\s+/g, " ")
           .trim();
-          this.productsArray.push({
-            id: i.Products[0].Stockcode,
-            name: i.Products[0].DisplayName,
-            price: i.Products[0].Price,
-            ticketPrice: i.Products[0].WasPrice,
-            flavor: fmap[flavor] || flavor.toLowerCase().replace(/\s+/g, "-"),
-            inStock: i.Products[0].IsInStock,
-            isSale: i.Products[0].Price != i.Products[0].WasPrice,
-            salePrice: i.Products[0].Price
-          });
-        }
-        hasInitialised = true;
+          
+        this.productsArray.push({
+          id: i.Products[0].Stockcode,
+          name: i.Products[0].DisplayName,
+          price: i.Products[0].Price,
+          ticketPrice: i.Products[0].WasPrice,
+          flavor: fmap[flavor] || flavor.toLowerCase().replace(/\s+/g, "-"),
+          inStock: i.Products[0].IsInStock,
+          isSale: i.Products[0].Price != i.Products[0].WasPrice,
+          salePrice: i.Products[0].Price
+        });
+      }
+      
+      console.log(`✓ Woolworths AU initialized with ${this.productsArray.length} products`);
+      hasInitialised = true;
     } catch (error) {
-      console.error(error);
+      console.error("Woolworths initialization failed:", error.message);
+      // Set as initialized even if failed to prevent retries
+      hasInitialised = true;
+      this.productsArray = [];
     }
   },
 
@@ -143,19 +163,16 @@ module.exports = {
   },
 
   async searchProducts(query) {
-    if(!hasInitialised) await this.init();
     const pa = await this.products();
     return pa.filter(p => !query || p.name.toLowerCase().includes(query.toLowerCase()));
   },
 
   async getAllFlavors() {
-    if(!hasInitialised) await this.init();
     const pa = await this.products();
     return pa.map(p => p.flavor);
   },
 
   async getFlavorInfo(flavor) {
-    if(!hasInitialised) await this.init();
     const pa = await this.products();
     return pa.find(p => p.flavor === flavor) || null;
   },
