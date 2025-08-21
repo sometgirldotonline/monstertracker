@@ -1,3 +1,5 @@
+const { products } = require("./stores/teststore");
+
 cardgen = {
     productStoreSpecific: function (product, currencySymbol, storeid) {
         return `
@@ -16,6 +18,20 @@ cardgen = {
         `
     },
     productMultiStore: function (stores, currencySymbol) {
+        // Safety check for empty stores array
+        if (!stores || stores.length === 0) {
+            console.warn('productMultiStore called with empty stores array');
+            return `
+    <div class="card rounded-xl p-6 bg-gray-800">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-gray-400">No Products Available</h3>
+        </div>
+        <div class="space-y-3">
+            <p class="text-gray-500">This product is temporarily unavailable from all stores.</p>
+        </div>
+    </div>`;
+        }
+
         function buildItem(obj){
             return `
         <a role="button" href="${obj.url}" class="mt-2 block">
@@ -26,9 +42,11 @@ cardgen = {
             <span class="text-xl font-bold">${obj.storeCurrency}${obj.price}</span>
           </div></a>`
         }
+        
         product = stores[0] // best guess at data for products?
         sortedProducts = stores.sort((a, b) => a.price - b.price);
         bestPriceProduct = sortedProducts.shift()
+        
         return `
     <div class="card rounded-xl p-6 f-${product.flavor} flavor-accent-bg">
         <div class="flex justify-between items-center mb-4">
