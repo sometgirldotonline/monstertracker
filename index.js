@@ -197,14 +197,14 @@ app.get('/', async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'loading.html');
   let html = fs.readFileSync(templatePath, 'utf8');
   html = html.replaceAll("{{appName}}", appname);
-  res.send(html);
+html = html.replaceAll("<head>","<head>"+headelements);  res.send(html);
 });
 
 app.get('/market/:id', async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'loading.html');
   let html = fs.readFileSync(templatePath, 'utf8');
   html = html.replaceAll("{{appName}}", appname);
-  res.send(html);
+html = html.replaceAll("<head>","<head>"+headelements);  res.send(html);
 });
 
 
@@ -233,7 +233,7 @@ app.get('/internal/', async (req, res) => {
         }
       }
       html = html.replaceAll("{{appName}}", appname);
-      html = html.replaceAll("{{results}}", markethtml);
+html = html.replaceAll("<head>","<head>"+headelements);      html = html.replaceAll("{{results}}", markethtml);
       html = html.replaceAll("{{query}}", "");
       html = html.replaceAll("{{countrylist}}", countryOptions);
       html = html.replaceAll("{{flavorfilters}}", flavorfilters);
@@ -294,7 +294,7 @@ app.get('/internal/', async (req, res) => {
         }
       }
       html = html.replaceAll("{{appName}}", appname);
-      html = html.replaceAll("{{results}}", markethtml);
+html = html.replaceAll("<head>","<head>"+headelements);      html = html.replaceAll("{{results}}", markethtml);
       html = html.replaceAll("{{flavorfilters}}", flavorfilters);
       html = html.replaceAll("{{countrylist}}", countryOptions);
       html = html.replaceAll("{{query}}", search);
@@ -327,7 +327,7 @@ app.get('/by-flavor/:flavor', async (req, res) => {
       }
     }
     html = html.replaceAll("{{appName}}", appname);
-    html = html.replaceAll("{{results}}", markethtml);
+html = html.replaceAll("<head>","<head>"+headelements);    html = html.replaceAll("{{results}}", markethtml);
     html = html.replaceAll("{{flavorfilters}}", flavorfilters);
     html += addtopageend;
     res.send(html);
@@ -340,7 +340,7 @@ app.get("/about", async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'about.html');
   let html = fs.readFileSync(templatePath, 'utf8');
   html = html.replaceAll("{{appName}}", appname);
-  html += addtopageend;
+html = html.replaceAll("<head>","<head>"+headelements);  html += addtopageend;
   res.send(html);
 })
 app.get('/markets', async (req, res) => {
@@ -360,7 +360,7 @@ app.get('/markets', async (req, res) => {
     }
 
     html = html.replaceAll("{{appName}}", appname);
-    html = html.replace("{{countrylist}}", countryOptions)
+html = html.replaceAll("<head>","<head>"+headelements);    html = html.replace("{{countrylist}}", countryOptions)
     html = html.replaceAll("{{marketCards}}", markethtml);
     html += addtopageend;
     res.send(html);
@@ -391,7 +391,7 @@ app.get('/markets/by-country/:country', async (req, res) => {
     }
 
     html = html.replaceAll("{{appName}}", appname);
-    html = html.replace("{{countrylist}}", countryOptions)
+html = html.replaceAll("<head>","<head>"+headelements);    html = html.replace("{{countrylist}}", countryOptions)
     html = html.replaceAll("{{marketCards}}", markethtml);
     html += addtopageend;
     res.send(html);
