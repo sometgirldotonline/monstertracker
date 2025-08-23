@@ -16,7 +16,10 @@
       border-bottom: 1px solid rgba(0,255,0,0.2);
       transition: transform 0.2s ease-out;
     }
-    body.scrolled-down nav { transform: translateY(-100%); }
+    @media screen and (max-width: 600px) {
+      body.scrolled-down nav { transform: translateY(-100%); }
+      
+    }
     body.scrolled-up nav { transform: translateY(0); }
   </style>
 </head>
