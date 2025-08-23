@@ -145,7 +145,8 @@ module.exports = {
           flavor: fmap[flavor] || flavor.toLowerCase().replace(/\s+/g, "-"),
           inStock: i.Products[0].IsInStock,
           isSale: i.Products[0].Price != i.Products[0].WasPrice,
-          salePrice: i.Products[0].Price
+          salePrice: i.Products[0].Price,
+          url: `https://www.woolworths.com.au/shop/productdetails/${i.Products[0].Stockcode}`
         });
       }
       

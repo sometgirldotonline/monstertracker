@@ -25,7 +25,7 @@ const flavormap = {
     "papillion": "Papillon"
 }
 
-const appname = "Monster Finder"
+const appname = "Monster Tracker"
 const addtopageend = ``
 app.use(express.static('static'));
 
@@ -176,12 +176,14 @@ async function mergeStores(stores) {
 app.get('/', async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'loading.html');
   let html = fs.readFileSync(templatePath, 'utf8');
+  html = html.replaceAll("{{appName}}", appname);
   res.send(html);
 });
 
 app.get('/market/:id', async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'loading.html');
   let html = fs.readFileSync(templatePath, 'utf8');
+  html = html.replaceAll("{{appName}}", appname);
   res.send(html);
 });
 
