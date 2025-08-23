@@ -211,3 +211,22 @@ h1 img {
     max-height: 25vh;
   }
 }
+nav{
+  transition: top ease-in-out 0.05s;
+}
+
+nav {
+  position: sticky; /* or fixed */
+  top: 0;
+  transition: transform 0.2s ease-out;
+}
+
+/* Hide the navbar when the page scrolls down a bit */
+body.scrolled-down nav {
+  transform: translateY(-100%);
+}
+
+/* Show it when scrolled up */
+body.scrolled-up nav {
+  transform: translateY(0);
+}

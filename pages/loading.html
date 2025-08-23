@@ -1,50 +1,104 @@
-<!-- Display a loading screen- this page will have just the toolbar- no navigation, a spinner/indeterminate loading bar, it will make a request to /mainpage on load, when the request completes, it overwrites the webpages html client side with the response -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{appName}} - Loading</title>
   <script src="https://cdn.tailwindcss.com/3.3.0"></script>
   <link rel="stylesheet" href="../style.css" />
+  <style>
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(0,0,0,0.2);
+      backdrop-blur: blur(10px);
+      border-bottom: 1px solid rgba(0,255,0,0.2);
+      transition: transform 0.2s ease-out;
+    }
+    body.scrolled-down nav { transform: translateY(-100%); }
+    body.scrolled-up nav { transform: translateY(0); }
+  </style>
 </head>
-
 <body>
-  <!-- Navigation -->
-  <nav class="sticky top-0 z-50 bg-black/20 backdrop-blur border-b border-green-500/20">
+  <!-- Loading page nav -->
+  <nav id="load">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <h1 class="text-2xl font-bold text-green-400">{{appName}}</h1>
-      </div>
+      <h1 class="text-2xl font-bold text-green-400">{{appName}}</h1>
     </div>
   </nav>
-  <div id="loading" class="flex flex-col justify-center items-center h-[70vh]">
-    <h2 class="text-xl font-bold text-green-400">Loading...</h2>
-    <span class="mb-8"><i>This should only take a moment (10-15 seconds tops). Stuck? Skeet me on Bluesky (@nova.tgirl.gay) or clear your cache.<br>If you see this for an extended time more than once per session, that probably means our server crashed or it was updated.</i></span>
-    <div class="animate-spin inline-block w-24 h-24 border-8 rounded-full border-green-400 border-t-transparent" role="status">
-      <span class="visually-hidden" style="opacity:0;">Loading...</span>
+
+  <!-- Main content container -->
+  <div id="app">
+    <div id="loading" class="flex flex-col justify-center items-center h-[70vh]">
+      <h2 class="text-xl font-bold text-green-400">Loading...</h2>
+      <span class="mb-8 text-center text-sm">
+        <i>This should only take a moment (10-15 seconds tops). Stuck? Skeet me on Bluesky (@nova.tgirl.gay) or clear your cache.<br>
+        If you see this for an extended time more than once per session, that probably means our server crashed or it was updated.</i>
+      </span>
+      <div class="animate-spin inline-block w-24 h-24 border-8 rounded-full border-green-400 border-t-transparent" role="status">
+        <span class="visually-hidden" style="opacity:0;">Loading...</span>
+      </div>
     </div>
   </div>
+
+  <!-- Nav scripts + fetch -->
   <script>
+    // Scroll-up / scroll-down tracker
+    (function() {
+      let lastScroll = 0;
+      window.addEventListener("scroll", () => {
+        const current = window.pageYOffset || document.documentElement.scrollTop;
+        if (current > lastScroll) {
+          document.body.classList.add("scrolled-down");
+          document.body.classList.remove("scrolled-up");
+        } else {
+          document.body.classList.add("scrolled-up");
+          document.body.classList.remove("scrolled-down");
+        }
+        lastScroll = current;
+      }, { passive: true });
+    })();
+
+    // Fetch main page and prepend content
     window.addEventListener('DOMContentLoaded', async () => {
       try {
-        const response = await fetch("/internal"+location.pathname+location.search+location.hash || "/internal/");
-        if (response.ok) {
-          const html = await response.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          document.body.innerHTML = doc.body.innerHTML;
-          document.title = doc.title;
-        } else {
-          document.getElementById('loading').innerHTML = '<p class="text-red-500">Failed to load main page.</p>';
-        }
+        const response = await fetch("/internal" + location.pathname + location.search + location.hash || "/internal/");
+        if (!response.ok) throw new Error("Failed to fetch main page");
+
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Prepend all child nodes of fetched body to current body
+const nodes = Array.from(doc.body.childNodes);
+for (let i = nodes.length - 1; i >= 0; i--) {
+  document.body.insertBefore(nodes[i], document.body.firstChild);
+}
+
+        document.querySelector("#app").remove();
+        document.querySelector("nav#load").remove();
+        // Update title
+        document.title = doc.title;
+
+        // Execute any scripts from fetched content
+        doc.body.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+
+        // Remove loading screen if still present
+        const loading = document.getElementById("loading");
+        if (loading) loading.remove();
+
       } catch (err) {
-        document.getElementById('loading').innerHTML = '<p class="text-red-500">An error occurred while loading the main page.</p>';
+        const loading = document.getElementById('loading');
+        if (loading) loading.innerHTML = '<p class="text-red-500">An error occurred while loading the main page.</p>';
         console.error(err);
-        // Optionally, you could redirect the user or show a retry button
-      }    });
+      }
+    });
   </script>
 </body>
-
 </html>

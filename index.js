@@ -46,7 +46,8 @@ const headelements = `
 <meta property="twitter:image" content="https://mt.novafurry.win/cover.png" />
 `
 const appname = "Monster Tracker"
-const addtopageend = ``
+
+
 app.use(express.static('static'));
 
 // Request-scoped cache to prevent multiple initializations
@@ -201,14 +202,16 @@ app.get('/', async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'loading.html');
   let html = fs.readFileSync(templatePath, 'utf8');
   html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);  res.send(html);
+html = html.replaceAll("<head>","<head>"+headelements);
+ res.send(html);
 });
 
 app.get('/market/:id', async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'loading.html');
   let html = fs.readFileSync(templatePath, 'utf8');
   html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);  res.send(html);
+html = html.replaceAll("<head>","<head>"+headelements);
+ res.send(html);
 });
 
 
@@ -237,12 +240,12 @@ app.get('/internal/', async (req, res) => {
         }
       }
       html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);      html = html.replaceAll("{{results}}", markethtml);
+html = html.replaceAll("<head>","<head>"+headelements);
+     html = html.replaceAll("{{results}}", markethtml);
       html = html.replaceAll("{{query}}", "");
       html = html.replaceAll("{{countrylist}}", countryOptions);
       html = html.replaceAll("{{flavorfilters}}", flavorfilters);
-      html += addtopageend;
-      res.send(html);
+        res.send(html);
     }
     else {
       const selectedcountry = req.query.country;
@@ -298,12 +301,12 @@ html = html.replaceAll("<head>","<head>"+headelements);      html = html.replace
         }
       }
       html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);      html = html.replaceAll("{{results}}", markethtml);
+html = html.replaceAll("<head>","<head>"+headelements);
+     html = html.replaceAll("{{results}}", markethtml);
       html = html.replaceAll("{{flavorfilters}}", flavorfilters);
       html = html.replaceAll("{{countrylist}}", countryOptions);
       html = html.replaceAll("{{query}}", search);
-      html += addtopageend;
-      res.send(html);
+        res.send(html);
     }
   } catch (error) {
     console.error('Error in /internal/ route:', error);
@@ -331,9 +334,9 @@ app.get('/by-flavor/:flavor', async (req, res) => {
       }
     }
     html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);    html = html.replaceAll("{{results}}", markethtml);
+html = html.replaceAll("<head>","<head>"+headelements);
+   html = html.replaceAll("{{results}}", markethtml);
     html = html.replaceAll("{{flavorfilters}}", flavorfilters);
-    html += addtopageend;
     res.send(html);
   } catch (error) {
     console.error('Error in /by-flavor/ route:', error);
@@ -344,7 +347,7 @@ app.get("/about", async (req, res) => {
   const templatePath = path.join(__dirname, 'pages', 'about.html');
   let html = fs.readFileSync(templatePath, 'utf8');
   html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);  html += addtopageend;
+html = html.replaceAll("<head>","<head>"+headelements);
   res.send(html);
 })
 app.get('/markets', async (req, res) => {
@@ -364,9 +367,9 @@ app.get('/markets', async (req, res) => {
     }
 
     html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);    html = html.replace("{{countrylist}}", countryOptions)
+html = html.replaceAll("<head>","<head>"+headelements);
+   html = html.replace("{{countrylist}}", countryOptions)
     html = html.replaceAll("{{marketCards}}", markethtml);
-    html += addtopageend;
     res.send(html);
   } catch (error) {
     console.error('Error in /markets route:', error);
@@ -395,9 +398,9 @@ app.get('/markets/by-country/:country', async (req, res) => {
     }
 
     html = html.replaceAll("{{appName}}", appname);
-html = html.replaceAll("<head>","<head>"+headelements);    html = html.replace("{{countrylist}}", countryOptions)
+html = html.replaceAll("<head>","<head>"+headelements);
+html = html.replace("{{countrylist}}", countryOptions)
     html = html.replaceAll("{{marketCards}}", markethtml);
-    html += addtopageend;
     res.send(html);
   } catch (error) {
     console.error('Error in /markets/by-country/ route:', error);
@@ -421,7 +424,6 @@ app.get('/internal/market/:id', async (req, res) => {
     productcards += card.productStoreSpecific(p, market.currency, market.id)
   }
   html = html.replace('{{productFlavorCards}}', productcards);
-  html += addtopageend;
   res.send(html);
 });
 
