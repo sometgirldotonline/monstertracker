@@ -25,6 +25,26 @@ const flavormap = {
     "papillion": "Papillon"
 }
 
+const headelements = `
+<!-- Primary Meta Tags -->
+<title>MonsterTracker - Monster Energy Price Tracker</title>
+<meta name="title" content="MonsterTracker - Monster Energy Price Tracker" />
+<meta name="description" content="fuckin gay mannnn" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mt.novafurry.win" />
+<meta property="og:title" content="MonsterTracker - Monster Energy Price Tracker" />
+<meta property="og:description" content="fuckin gay mannnn" />
+<meta property="og:image" content="https://mt.novafurry.win/cover.png" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://mt.novafurry.win" />
+<meta property="twitter:title" content="MonsterTracker - Monster Energy Price Tracker" />
+<meta property="twitter:description" content="fuckin gay mannnn" />
+<meta property="twitter:image" content="https://mt.novafurry.win/cover.png" />
+`
 const appname = "Monster Tracker"
 const addtopageend = ``
 app.use(express.static('static'));
