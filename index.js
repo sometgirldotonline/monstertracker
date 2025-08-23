@@ -24,7 +24,7 @@ const flavormap = {
     "original": "Green",
     "papillion": "Papillon"
 }
-
+let isCachingNow = false;
 const headelements = `
 <!-- Primary Meta Tags -->
 <title>MonsterTracker - Monster Energy Price Tracker</title>
@@ -58,8 +58,12 @@ const CACHE_DURATION = 30000; // 30 seconds
 // Optimized data fetching for serverless
 async function getStoreData() {
   // Check if we have fresh cached data
-  if (requestCache && (Date.now() - cacheTimestamp) < CACHE_DURATION) {
-    console.log('Using cached store data');
+  let count = 0
+  if(requestCache) {count = Object.values(requestCache.allItems).filter(
+  v => Array.isArray(v) && v.length > 0
+).length}
+  if (requestCache && count > 2 && (Date.now() - cacheTimestamp) < CACHE_DURATION) {
+    console.log('Using cached store data', requestCache);
     return requestCache;
   }
 
