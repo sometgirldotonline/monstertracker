@@ -29,7 +29,7 @@
   <script>
     window.addEventListener('DOMContentLoaded', async () => {
       try {
-        const response = await fetch("/internal"+location.pathname || "/internal/");
+        const response = await fetch("/internal"+location.pathname+location.search+location.hash || "/internal/");
         if (response.ok) {
           const html = await response.text();
           const parser = new DOMParser();

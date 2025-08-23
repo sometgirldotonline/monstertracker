@@ -48,7 +48,7 @@ module.exports = {
       this.productsArray = [];
       // First request to get cookies
       console.log("Sending cookie request");
-      res1 = await client.get("http://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy");
+      res1 = await client.get("https://www.woolworths.com.au/shop/search/products?searchTerm=Monster%20Energy");
 
       // Prepare headers for the second request
       const myHeaders = {
@@ -80,7 +80,7 @@ module.exports = {
       // Second request to get product list
       console.log("Requesting list of monster products.");
       res2 = await client.post(
-        "http://www.woolworths.com.au/apis/ui/Search/products",
+        "https://www.woolworths.com.au/apis/ui/Search/products",
         raw,
         { headers: myHeaders }
       );

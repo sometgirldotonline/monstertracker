@@ -4,12 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const loadStores = require("./storeloader.js")
 const card = require("./cardgen.js");
-const { products } = require('./stores/teststore.js');
 const e = require('express');
 const app = express();
 const port = 3010;
 const markets = loadStores();
-
+app.disable('etag');
 const flavormap = {
     "ultra": "Ultra",
     "ultragold": "Ultra Gold",

@@ -1,4 +1,3 @@
-const { products } = require("./stores/teststore");
 
 cardgen = {
     productStoreSpecific: function (product, currencySymbol, storeid) {
