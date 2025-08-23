@@ -57,7 +57,7 @@ module.exports = {
       }
 
       // Parse products
-      json.results.filter(item => item.product_size == "500mL").forEach(item => !item.product_name.includes("Super Dry")).forEach(item => {
+      json.results.filter(item => item.product_size == "500mL").filter(item => !item.product_name.includes("Super Dry")).forEach(item => {
           flavor = item.product_name.replaceAll(/Energy|Drink|Can/ig, "").trim().replace("Flavour","").replace("flavour", "").trim()
           this.productsArray.push({
               id: item.url.split("/")[4],
