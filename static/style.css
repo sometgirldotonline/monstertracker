@@ -199,3 +199,15 @@ h1 img {
   height: calc(2 * 1.3em); 
   max-height: calc(2 * 1.3em);
 }
+@media screen and (max-width: 600px){
+  nav h1, nav *:has(h1){
+    display: block !important;
+    margin-bottom: 1rem;
+  }
+  nav > div{
+    margin-bottom: 0px;
+  }
+  .card img{
+    max-height: 25vh;
+  }
+}
