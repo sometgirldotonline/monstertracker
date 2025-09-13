@@ -426,11 +426,6 @@ app.get('/internal/market/:id', async (req, res) => {
   html = html.replace('{{productFlavorCards}}', productcards);
   res.send(html);
 });
-if(env.RUNNING_IN_WORKER == "YES"){
-    export default app;
-}
-else{
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-}
