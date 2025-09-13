@@ -43,7 +43,7 @@ module.exports = {
       // First request to get cookies
       console.log("Requesting list of monster products.");
       res2 = await client.get(
-        "http://192.9.180.96/colesmonstercache.php"
+        "http://localhost/colesmonstercache.php"
       );
 
       const json = res2.data;
